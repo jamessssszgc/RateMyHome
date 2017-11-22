@@ -227,7 +227,6 @@ function addComment(i,item){
 function toFirstView() {
   $("#container").empty()
   $("#container2").hide()
-  $("#container").append("<div id='map'></div>")
   $("#container").append("<div id='firstview'><br><br>Welcome to RateMyHome</div>")
 }
 

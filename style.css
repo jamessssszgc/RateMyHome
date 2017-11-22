@@ -83,7 +83,7 @@ html, body {
 	}
 	.listing.col-sm-8 {
 		font-size:1em;
-		left:150px;
+		left:-150px;
 	}
 }
 

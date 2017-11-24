@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         @media #screen and (min-width: 1000px) {
+         /*body {
+         background-color: lightgreen;
+         }*/
+         }
+      </style>
+      <title>Rate My Home</title>
+      <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+      <meta charset="utf-8">
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="style.css">
+
+      <!-- jQuery library -->
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> 
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
+      <script src="map_script.js"></script>
+   </head>
+
+   <body>
+      <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span> 
+               </button>
+               <li id="logo"><img src="public/logo.jpg" href="#" onclick="toFirstView()" height='49' width='75'></li>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+               <ul class="nav navbar-nav">
+                  <li class="active" id="home"><a href="#" onclick="initMap()">Home</a></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+
+      <div id="info-container" style="overflow-y: auto;">
+         <div id="place_img" class="img"></div>
+         <div id="info">
+            <div data-spy="scroll" data-target=".navbar" data-offset="50px">
+               <nav class="navbar navbar-inverse navbar-fixed-bottom">
+                  <div class="container-fluid">
+                     <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                     
+                        </button>
+                     </div>
+                     <div>
+                        <div class="collapse navbar-collapse" id="myNav">
+                           <ul class="nav navbar-nav">
+                              <li ><a href="#Description"> Description </a></li>
+                              <li><a href="#Review"> Review </a></li>
+                              <li ><a href="#userInput"> Your opinion </a></li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </nav>
+
+               <div id="Description" class="container-fluid">
+                  <h1>Description</h1>
+                  <div id="Description-detail">
+                  </div>
+               </div>
+               
+               <div id="Review" class="container-fluid">
+                  <h1>Review</h1>
+                  <div id="Review-detail"></div>
+                  <div class="panel-group" id="accordion">
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <div class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Overall Rating</a>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                           </div>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="side">
+                                    <div>Excellent</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-5"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Good</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-4"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Average</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-3"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-2"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Very bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-1"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <div class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Neighbors</a>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                           </div>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="side">
+                                    <div>Excellent</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-5"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Good</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-4"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Average</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-3"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-2"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Very bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-1"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <div class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Security</a>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                           </div>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="side">
+                                    <div>Excellent</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-5"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Good</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-4"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Average</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-3"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-2"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Very bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-1"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <div class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Public Area</a>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                           </div>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="side">
+                                    <div>Excellent</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-5"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Good</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-4"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Average</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-3"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-2"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Very bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-1"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <div class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Views</a>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                           </div>
+                        </div>
+                        <div id="collapse5" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              <div class="row">
+                                 <div class="side">
+                                    <div>Excellent</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-5"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Good</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-4"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Average</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-3"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-2"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                                 <div class="side">
+                                    <div>Very bad</div>
+                                 </div>
+                                 <div class="middle">
+                                    <div class="bar-container">
+                                       <div class="bar-1"></div>
+                                    </div>
+                                 </div>
+                                 <div class="side right">
+                                    <div>0</div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div id="userInput" class="container-fluid">
+               <h1>Your opinion</h1>
+               <form>
+                  <div class="form-group">
+                     <label for="usr">Name:</label>
+                     <input type="text" class="form-control" id="usr" placeholder="Name">
+                     <label for="comment">Comment:</label>
+                     <textarea class="form-control" type="comment" rows="5" id="comment" placeholder="What do you think"></textarea>
+                     <br>
+                     <h2>Overall rating</h2>
+               <form>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Very bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Average
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Good
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Excellent
+               </label>
+               </form>
+               <h2>Neighbors</h2>
+               <form>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Very bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Average
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Good
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Excellent
+               </label>
+               </form>
+               <h2>Security</h2>
+               <form>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Very bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Average
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Good
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Excellent
+               </label>
+               </form>
+               <h2>Public Area</h2>
+               <form>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Very bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Average
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Good
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Excellent
+               </label>
+               </form>
+               <h2>Views</h2>
+               <form>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Very bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Bad
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Average
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Good
+               </label>
+               <label class="radio-inline">
+               <input type="radio" name="optradio">Excellent
+               </label>
+               </form>
+               <br>
+               <button type="submit" class="btn btn-default" onclick="submitComment()">Submit</button>
+               </div>
+               </form>
+            </div>
+         </div>
+      </div>
+
+   </body>
+</html>

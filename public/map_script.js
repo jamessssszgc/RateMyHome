@@ -156,7 +156,7 @@ function listItem(item) {
       img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src="+img_url+" height='120px' width='120px'></div>";
     }
     else{
-      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./public/blackball.jpg' height='120px' width='120px'></div>";
+      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./img/blackball.jpg' height='120px' width='120px'></div>";
     }
     $(img_html).appendTo($(".panel.listing.row#"+item.id));
     
@@ -190,7 +190,7 @@ function setUpPostings(item) {
       }
     }
     else{
-      img_html = "<div id='img'><img src='./img/blackball.jpg' style='width:600px;height:500px'></div>";
+      img_html = "<div id='img'><img src='.//blackball.jpg' style='width:600px;height:500px'></div>";
       $(img_html).appendTo($("#place_img"));
     }
 
@@ -231,28 +231,28 @@ function toFirstView() {
 }
 
 
-//submit user comment
-function submitComment() {
-  var user = $("#usr").val();
-  var comment = $("#comment").val();
-  //must have a valid comment
-  if (comment == null || comment ==""){
-    return false;
-  }
-  //maynot have a valid user name
-  if (user == null || user ==""){
-    user = "Anonymous";
-  };
-  var newusr = {
-  "userID": user,
-  "content": comment,
-  "time": new(Date)
-  };
-  addComment(size+1,newusr);
-  size += 1;
-  $("#usr").val("");
-  $("#comment").val("");
-}
+// //submit user comment
+// function submitComment() {
+//   var user = $("#usr").val();
+//   var comment = $("#comment").val();
+//   //must have a valid comment
+//   if (comment == null || comment ==""){
+//     return false;
+//   }
+//   //maynot have a valid user name
+//   if (user == null || user ==""){
+//     user = "Anonymous";
+//   };
+//   var newusr = {
+//   "userID": user,
+//   "content": comment,
+//   "time": new(Date)
+//   };
+//   addComment(size+1,newusr);
+//   size += 1;
+//   $("#usr").val("");
+//   $("#comment").val("");
+// }
 
 
 //set up the offset for scrolling in page 3

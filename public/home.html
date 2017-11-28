@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         @media #screen and (min-width: 1000px) {
+      </style>
+      <title>Rate My Home</title>
+   </head>
+
+   <body>
+      <div id="container" style="overflow-y: auto;">
+         <div id="firstview">
+               <h2 style="padding-top: 10%">Welcome to RateMyHome !</h2>
+
+               <!-- Filter -->
+               <div id="filter">Radius:
+                  <select>
+                    <option value="m500">500m</option>
+                    <option value="m1000">1000m</option>
+                    <option value="m2000">2000m</option>
+                  </select>
+                    Home Type:
+                  <select>
+                    <option value="condo">Condo</option>
+                    <option value="house">House</option>
+                    <option value="hotel">Hotel</option>
+                  </select>
+               </div>
+
+               <div class="form-group">Centre:
+                     <input type="text" class="form-control" placeholder="Search">
+                     <button type="submit" class="btn btn-default" onclick="getLatLng()">Search</button>
+               </div>
+                  
+
+
+
+
+
+
+               <div id="top-building">
+                  <h4 style="border-bottom: solid thin; border-top: solid thin"> Top Buildings</h4>
+                  <div class="building-card"> building 1</div>
+                  <div class="building-card"> building 2</div>
+                  <div class="building-card"> building 3</div>
+                  <div class="building-card"> building 4</div>
+                  <div class="building-card"> building 5</div>
+                  <div class="building-card"> building 6</div>
+               </div>
+         </div>
+      </div>
+
+   </body>
+</html>

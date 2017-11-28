@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/FallCSC309/assignment-3-melonskin#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "method-override": "^2.3.10",
+    "mongodb": "^2.2.33",
     "morgan": "^1.9.0"
   }
 }

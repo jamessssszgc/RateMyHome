@@ -48,12 +48,11 @@ app.get('/', function (req, res) {
 
 app.post('/comment',(req, res) => {
 	res.send(req.body)
-	db.collection("reviews").insertOne(req.body, function(err, result){
+	db.collection("REVIEWS").insertOne(req.body, function(err, result){
 					//continue
 					if (err) return console.log(err)
-
 					console.log("Database inserted");
-					res.redirect('/')
+				
 				});
 	
 });

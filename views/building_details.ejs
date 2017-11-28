@@ -1,0 +1,33 @@
+<div id="container">
+   
+   <div id="place_img" class="img"> </div>
+
+   <div id="info">
+      <div data-spy="scroll" data-target=".navbar" data-offset="50px">
+
+         <% include ../partials/details_navbar%>
+
+         <div id="Description" class="container-fluid">
+
+            <h1>Description</h1>
+
+            <div id="Description-detail"> </div>
+
+         </div>
+
+         <div id="Review" class="container-fluid">
+
+            <h1>Review</h1>
+
+            <div id="Review-detail"> </div>
+
+            <% include ../partials/rating_panels %>
+
+         </div>
+
+      </div>
+
+      <% include ../partials/user_input %>
+
+   </div>
+</div>

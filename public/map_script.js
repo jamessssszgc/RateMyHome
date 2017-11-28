@@ -8,30 +8,6 @@ var hometype = 'condo';
 var placeid = 0;
 var service;
 
-var postings = {
-"1": {
-  "userID": "user1",
-  "content": "I am posting one\n it is ververververvey nice",
-  "time": "Day 1"
-  },
-"2": {
-  "userID": "user2",
-  "content": "I am posting two",
-  "time": "Day 1"
-  },
-"3": {
-  "userID": "user4",
-  "content": "I am posting three",
-  "time": "Day 1"
-  },
-"4": {
-  "userID": "user5",
-  "content": "I am posting four",
-  "time": "Day 1"
-  }
-}
-
-
 Object.size = function(obj) {
     var size = 0, key;
     for (key in obj) {
@@ -40,14 +16,17 @@ Object.size = function(obj) {
     return size;
 };
 
-// Get the size of an object
-var size = Object.size(postings);
+
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
 
 function initMap() {
-  $("#container2").hide();
-  $(".carousel-inner").empty();
-  $(".carousel-indicators").empty();
-  $("#firstview").empty();
   $("#container").empty();
   $("#container").append("<div id='map'></div>");
   $("#container").append("<div id='placeholder'></div>")
@@ -127,18 +106,7 @@ function setRadius(r) {
   initMap();
 }
 
-function getLatLng() {
-  var address = $("input:text").val();
-  $.ajax({
-    url:"http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
-    type: "POST"
-  }).done(function(res){
-      let latitude=res.results[0].geometry.location.lat;
-      let longitude=res.results[0].geometry.location.lng;
-      center = {lat: latitude, lng: longitude};
-      initMap();
-    });
-}
+
 
 function setHomeType(t) {
   hometype = t;
@@ -223,35 +191,12 @@ function addComment(i,item){
 }
 
 
-//go back to main page
-function toFirstView() {
-  $("#container").empty()
-  $("#container2").hide()
-  $("#container").append("<div id='firstview'><br><br>Welcome to RateMyHome</div>")
-}
+
 
 
 //submit user comment
 function submitComment() {
-  var user = $("#usr").val();
-  var comment = $("#comment").val();
-  //must have a valid comment
-  if (comment == null || comment ==""){
-    return false;
-  }
-  //maynot have a valid user name
-  if (user == null || user ==""){
-    user = "Anonymous";
-  };
-  var newusr = {
-  "userID": user,
-  "content": comment,
-  "time": new(Date)
-  };
-  addComment(size+1,newusr);
-  size += 1;
-  $("#usr").val("");
-  $("#comment").val("");
+  
 }
 
 

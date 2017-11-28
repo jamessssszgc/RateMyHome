@@ -1,0 +1,13 @@
+#place_img {
+    display: flex;
+    margin: auto;
+    padding-top: 50px;
+    padding-left: 100px;
+}
+#Description{
+    position: relative;
+    top:100px;
+}
+#firstnav {
+	background-color: #FFFFFF;
+}

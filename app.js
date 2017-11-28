@@ -1,72 +1,61 @@
-<<<<<<< HEAD
-var express = require('express');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-
-var app = express();
-
-
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
- 
-//app.use(express.static('public'));
-=======
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient
 const app = express();
-
+const url = "mongodb://manager:123@ds123896.mlab.com:23896/melonskin"
 app.use(bodyParser.urlencoded({extended: true}));
 // var urlencodedParser = bodyParser.urlencoded({ extended: false })
  
 app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
 
+var db
 
->>>>>>> 3d8a5c31ef518c27c571c12ef4202f937556f6c8
-
-app.get('/', function (req, res) {
-	res.redirect('/home');
-});
-
-app.get('/home', function (req, res) {
-	//es.send('home page');
-   	res.sendFile( __dirname + "/home.html" );
-})
-
-<<<<<<< HEAD
-// Get buiding list
-app.get('/list_building', function (req, res) {
-	console.log("list_buiding GET request")
-	res.send('buiding list page');
-    //res.sendFile( __dirname + "/list.html" );
-})
-
-// Get reviews
-app.get('/reviews', function (req, res) {
-	console.log("reviews GET request")
-	res.send('reviews page');
-    //res.sendFile( __dirname + "/reviews.html" );
-})
+MongoClient.connect(url, function(err,res){
+				if(err) console.log(err)
+				console.log("Database created");
+				db = res
+	
+			});
 
 
-// app.post('/', urlencodedParser, function (req, res) {
-// 	var obj = {};
-// 	console.log(req.body);
-// 	res.send(req.body);
+// app.get('/', function (req, res) {
+// 	res.redirect('/home');
 // });
 
-var server = app.listen(3000, function () {
- 
-  var host = server.address().address
-  var port = server.address().port
- 
-  console.log(`Server listening on port ${port}`);
- 
+app.get('/', function (req, res) {
+	//es.send('home page');
+   	//res.sendFile( __dirname + "/home.html" );
+   	res.sendFile( __dirname + "/index.html" );
 })
-=======
+
+
+// // Get buiding list
+// app.get('/list_building', function (req, res) {
+// 	console.log("list_buiding GET request")
+// 	res.send('buiding list page');
+//     //res.sendFile( __dirname + "/list.html" );
+// })
+
+// // Get reviews
+// app.get('/reviews', function (req, res) {
+// 	console.log("reviews GET request")
+// 	res.send('reviews page');
+//     //res.sendFile( __dirname + "/reviews.html" );
+// })
+
+
+
 app.post('/comment',(req, res) => {
+	res.send(req.body)
+	db.collection("reviews").insertOne(req.body, function(err, result){
+					//continue
+					if (err) return console.log(err)
+
+					console.log("Database inserted");
+					res.redirect('/')
+				});
 	
-	console.log(req.body);
-	res.send(req.body);
 });
 
 app.listen(PORT, () => {
@@ -75,30 +64,4 @@ app.listen(PORT, () => {
 
 
 
-const db = (function() {
-  let database = {
-    'CSC309': { 
-      id: 'CSC309',
-      when: new Date(),
-      what: 'Programming on the Web',
-      who: 'Gonzalez'
-    }
-  };
 
-  return { // public interface to the DB layer
-
-    findAll: function () {
-      return database
-    },
-    findOne: function (i) {
-      return database[i]
-    },
-    add: function(r) {
-      database[r.id] = r
-    },
-    remove: function(i) {
-      delete database[i]
-    }
-  };
-})();
->>>>>>> 3d8a5c31ef518c27c571c12ef4202f937556f6c8

@@ -4,10 +4,11 @@ var app = express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
  
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
-app.get('/index.html', function (req, res) {
+app.get('/', function (req, res) {
    res.sendFile( __dirname + "/" + "index.html" );
+
 })
 
 app.post('/', urlencodedParser, function (req, res) {
@@ -16,7 +17,7 @@ app.post('/', urlencodedParser, function (req, res) {
 	res.send(req.body);
 });
 
-var server = app.listen(81, function () {
+var server = app.listen(3000, function () {
  
   var host = server.address().address
   var port = server.address().port

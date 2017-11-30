@@ -8,19 +8,38 @@ var hometype = 'condo';
 var placeid = 0;
 var service;
 
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
+
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
 
 
 
+function toSecond(){
+  console.log("success")
+  var url = window.location.href
+  $.ajax({
+        type: 'GET',
+        url:url,
+        success: function(data) { console.log(data);},
+      
+      })
+}
 
 function initMap() {
-  $("#container2").hide();
-  $(".carousel-inner").empty();
-  $(".carousel-indicators").empty();
-  $("#firstview").empty();
-  $("#container").empty();
-  $("#container").append("<div id='map'></div>");
-  $("#container").append("<div id='placeholder'></div>")
-
+  
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: center,
@@ -96,18 +115,7 @@ function setRadius(r) {
   initMap();
 }
 
-function getLatLng() {
-  var address = $("input:text").val();
-  $.ajax({
-    url:"http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
-    type: "POST"
-  }).done(function(res){
-      let latitude=res.results[0].geometry.location.lat;
-      let longitude=res.results[0].geometry.location.lng;
-      center = {lat: latitude, lng: longitude};
-      initMap();
-    });
-}
+
 
 function setHomeType(t) {
   hometype = t;
@@ -125,7 +133,7 @@ function listItem(item) {
       img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src="+img_url+" height='120px' width='120px'></div>";
     }
     else{
-      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='../public/blackball.jpg' height='120px' width='120px'></div>";
+      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./public/blackball.jpg' height='120px' width='120px'></div>";
     }
     $(img_html).appendTo($(".panel.listing.row#"+item.id));
     
@@ -137,7 +145,15 @@ function listItem(item) {
       $("#container").empty();
       $("#container2").css("background-color", "white");
       $(".details").append("<h2>" + item.name + " Postings</h2><br>")
-      setUpPostings(item);
+      //setUpPostings(item);
+       console.log(window.location.href)
+      $.ajax({
+        type: 'POST',
+        data: {"itemID":item.place_id},
+        url:'http://localhost:3000/home/detail',
+        success: function(data) { console.log('success');},
+      
+      })
     });
   })
 }
@@ -159,7 +175,7 @@ function setUpPostings(item) {
       }
     }
     else{
-      img_html = "<div id='img'><img src='../public/blackball.jpg' style='width:600px;height:500px'></div>";
+      img_html = "<div id='img'><img src='./public/blackball.jpg' style='width:600px;height:500px'></div>";
       $(img_html).appendTo($("#place_img"));
     }
 
@@ -173,7 +189,7 @@ function setUpPostings(item) {
    }
 })
 
-  //append existed user comments
+  // //append existed user comments
   // $.each(postings, function(i, item) {
   //   addComment(i, item);
   // })
@@ -182,50 +198,30 @@ function setUpPostings(item) {
   $("#container2").toggle();
 }
 
-// //append comment of users
+//append comment of users
 // function addComment(i,item){
 //    $("<div class='media' id=" + i + ">").appendTo("#Review-detail");
-    // $("#" + i).append("<div class='media-left'><img src='./img/profile.png' \
-    //   class='media-object' style='width:60px'></dv>\
-    // <div class='media-body'><h4 class='media-heading'>" + item.userID+ "</h4>\
-    // <p>" + item.content + "</p></div>")
+//     $("#" + i).append("<div class='media-left'><img src='./public/profile.png' \
+//       class='media-object' style='width:60px'></dv>\
+//     <div class='media-body'><h4 class='media-heading'>" + item.userID+ "</h4>\
+//     <p>" + item.content + "</p></div>")
 // }
 
 
-//go back to main page
-function toFirstView() {
-  $("#container").empty()
-  $("#container2").hide()
-  $("#container").append("<div id='firstview'><br><br>Welcome to RateMyHome</div>")
-}
 
 
-// //submit user comment
-// function submitComment() {
-//   var user = $("#usr").val();
-//   var comment = $("#comment").val();
-//   //must have a valid comment
-//   if (comment == null || comment ==""){
-//     return false;
-//   }
-//   //maynot have a valid user name
-//   if (user == null || user ==""){
-//     user = "Anonymous";
-//   };
-//   var newusr = {
-//   "userID": user,
-//   "content": comment,
-//   "time": new(Date)
-//   };
-//   addComment(size+1,newusr);
-//   size += 1;
-//   $("#usr").val("");
-//   $("#comment").val("");
-// }
 
 
 //set up the offset for scrolling in page 3
 $(document).ready(function(){
+  console.log(js)
+var url = window.location.href
+  $.ajax({
+        type: 'GET',
+        url:"http://localhost:3000/test",
+        success: function(data) { console.log(data);},
+      
+      })
   var offset = 30;
   $('#myNav li a').click(function(event) {
     event.preventDefault();
@@ -249,6 +245,7 @@ function scrollFunction() {
 function topFunction() {
     document.body.scrollTop = 0; 
     document.documentElement.scrollTop = 0; 
+
 }
 
 

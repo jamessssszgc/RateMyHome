@@ -1,290 +1,55 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <style>
-         @media #screen and (min-width: 1000px) {
-         /*body {
-         background-color: lightgreen;
-         }*/
-         }
-      </style>
-      <title>Place searches</title>
-      <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-      <meta charset="utf-8">
-      <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <!-- jQuery library -->
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-      <!-- Latest compiled JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <script src="map_script.js"></script>
-      <link rel="stylesheet" href="style.css">
-   </head>
-   <body>
-      <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>
 
-      <div id="login" class="modal">
-         <form class="modal-content animate" >
-            <div class="imgcontainer">
-               <span onclick="document.getElementById('login').style.display='none'" class="close" title="Close Modal">&times;</span>
-            </div>
-            <div class="login-form">
-               <label><b>Username</b></label>
-               <input class="login-input" type="text" placeholder="Enter Username" name="uname" required>
-               <label><b>Password</b></label>
-               <input class="login-input" type="password" placeholder="Enter Password" name="psw" required>
+  <head>
+     <style>
+        @media #screen and (min-width: 1000px) {
+        /*body {
+        background-color: lightgreen;
+        }*/
+        }
+     </style>
+     <title>Place searches</title>
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+     <meta charset="utf-8">
+     <!-- Latest compiled and minified CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <!-- jQuery library -->
+     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+     <!-- Latest compiled JavaScript -->
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+     <script src="map_script.js"></script>
+     <link rel="stylesheet" href="style.css">
+  </head>
 
-               <button class="loginbtn" type="submit">Login</button>
-               <input type="checkbox" checked="checked"> Remember me
-            </div>
 
-            <div class="login-form" style="background-color:#f1f1f1">
-               <span class="psw"><a href="#">Forgot password?</a></span>
-            </div>
-         </form>
-      </div>
+<body>
 
-      <div id="signup" class="modal">
-         <span onclick="document.getElementById('signup').style.display='none'" class="close" title="Close Modal">×</span>
-         <form class="modal-content animate">
-            <div class="imgcontainer">
-               <span onclick="document.getElementById('signup').style.display='none'" class="close" title="Close Modal">&times;</span>
-            </div>
-            <div class="login-form">
-               <label><b>Email</b></label>
-               <input class="login-input" type="text" placeholder="Enter Email" name="email" required>
+   <% include partials/navbar %>
 
-               <label><b>Password</b></label>
-               <input class="login-input" type="password" placeholder="Enter Password" name="psw" required>
-
-               <label><b>Repeat Password</b></label>
-               <input class="login-input" type="password" placeholder="Repeat Password" name="psw-repeat" required>
-               <input type="checkbox" checked="checked"> Remember me
-               <p>By creating an account you agree to our <a href="#"> Terms and Privacy</a>.</p>
-               <div class="clearfix">
-                  <button type="submit" class="loginbtn">Sign Up</button>
-               </div>
-            </div>
-         </form>
-      </div>
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-         <div class="container-fluid">
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               </button>
-               <li id="logo"><img src="./logo.jpg" href="#" onclick="toFirstView()" height='49' width='75'></li>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-               <form class="navbar-form navbar-right">
-                  <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Search">
-                  </div>
-                  <button type="submit" class="btn btn-default" onclick="getLatLng()">Search</button>
-                  <button class="btn btn-default" onclick="document.getElementById('login').style.display='block'" >Login</button>
-                  <button class="btn btn-default" onclick="document.getElementById('signup').style.display='block'" style="width:auto;">Sign Up</button>
-               </form>
-               <ul class="nav navbar-nav">
-                  <li class="active" id="home"><a href="#" onclick="initMap()">Home</a></li>
-                  <li>
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search radius <b class="caret"></b></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#" onclick="setRadius(500)">500m</a></li>
-                        <li><a href="#" onclick="setRadius(1000)">1000m</a></li>
-                        <li><a href="#" onclick="setRadius(2000)">2000m</a></li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home type <b class="caret"></b></a>
-                     <ul class="dropdown-menu multi-level">
-                        <li><a href="#" onclick="setHomeType('Residence')">Residence</a></li>
-                        <li><a href="#" onclick="setHomeType('Condo')">Condo</a></li>
-                        <li><a href="#" onclick="setHomeType('Hotel')">Hotel</a></li>
-                     </ul>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </div>
-      <div id="container" style="overflow-y: auto;">
+      <div id="container">
          <div id="firstview">
-               <h2 style="padding-top: 10%">Welcome to RateMyHome !</h2>
-               <div id="top-building">
-                  <h4 style="border-bottom: solid thin; border-top: solid thin"> Top Buildings</h4>
-                  <div class="building-card"> building 1</div>
-                  <div class="building-card"> building 2</div>
-                  <div class="building-card"> building 3</div>
-                  <div class="building-card"> building 4</div>
-                  <div class="building-card"> building 5</div>
-                  <div class="building-card"> building 6</div>
-               </div>
-         </div>
-      </div>
-      <div id="container2">
-         <div id="place_img" class="img">
-         </div>
-         <div id="info">
-            <div data-spy="scroll" data-target=".navbar" data-offset="50px">
-               <nav class="navbar navbar-inverse navbar-fixed-bottom">
-                  <div class="container-fluid">
-                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        </button>
-                     </div>
-                     <div>
-                        <div class="collapse navbar-collapse" id="myNav">
-                           <ul class="nav navbar-nav">
-                              <li ><a href="#Description">Description</a></li>
-                              <li><a href="#Review">Review</a></li>
-                              <li ><a href="#userInput">Your opinin</a></li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </nav>
-               <div id="Description" class="container-fluid">
-                  <h1>Description</h1>
-                  <div id="Description-detail">
-                  </div>
-               </div>
-               <div id="Review" class="container-fluid">
-                  <h1>Review</h1>
-
-                  <div id="Review-detail">
-                     <% for (let userID in REVIEWS) { %>
-                     <div class="media">
-         
-                        <div class='media-left'>
-                           <img src='./profile.png' class='media-object' style='width:60px'>
-                        </div>
-                        <div class='media-body'><h4 class='media-heading'><%= REVIEWS[userID].userID %></h4>
-                        <p><%= REVIEWS[userID].reviews %></p>
-                        </div>
-                        
-                        
-                     </div>
-                      <% } %>
-                  </div>
-                  <div class="panel-group" id="accordion">
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <div class="panel-title">
-                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Overall Rating</a>
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star"></span>
-                           </div>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
-                           <div class="panel-body">
-                              <div class="row">
-                                 <div class="side">
-                                    <div>Excellent</div>
-                                 </div>
-                                 <div class="middle">
-                                    <div class="bar-container">
-                                       <div class="bar-5"></div>
-                                    </div>
-                                 </div>
-                                 <div class="side right">
-                                    <div>0</div>
-                                 </div>
-                                 <div class="side">
-                                    <div>Good</div>
-                                 </div>
-                                 <div class="middle">
-                                    <div class="bar-container">
-                                       <div class="bar-4"></div>
-                                    </div>
-                                 </div>
-                                 <div class="side right">
-                                    <div>0</div>
-                                 </div>
-                                 <div class="side">
-                                    <div>Average</div>
-                                 </div>
-                                 <div class="middle">
-                                    <div class="bar-container">
-                                       <div class="bar-3"></div>
-                                    </div>
-                                 </div>
-                                 <div class="side right">
-                                    <div>0</div>
-                                 </div>
-                                 <div class="side">
-                                    <div>Bad</div>
-                                 </div>
-                                 <div class="middle">
-                                    <div class="bar-container">
-                                       <div class="bar-2"></div>
-                                    </div>
-                                 </div>
-                                 <div class="side right">
-                                    <div>0</div>
-                                 </div>
-                                 <div class="side">
-                                    <div>Very bad</div>
-                                 </div>
-                                 <div class="middle">
-                                    <div class="bar-container">
-                                       <div class="bar-1"></div>
-                                    </div>
-                                 </div>
-                                 <div class="side right">
-                                    <div>0</div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div id="userInput" class="container-fluid">
-               <h1>Your opinion</h1>
-               <form action="/comment" method="POST">
-                  <div class="form-group">
-                     <label for="userID">userID:</label>
-                     <textarea class="form-control" name="userID" type="text"  id="user" placeholder="What do you think"></textarea>
-                     <label for="comment">Comment:</label>
-                     <textarea class="form-control" name="reviews" type="text" rows="5" id="comment" placeholder="What do you think"></textarea>
-                     <br>
-                     <h2>Overall rating</h2>
-
-
-               <form>
-               <label class="radio-inline">
-               <input type="radio" name="l" value="1">Very bad
-               </label>
-               <label class="radio-inline">
-               <input type="radio" name="rate" value="2">Bad
-               </label>
-               <label class="radio-inline">
-               <input type="radio" name="rate" value="3">Average
-               </label>
-               <label class="radio-inline">
-               <input type="radio" name="rate" value="4">Good
-               </label>
-               <label class="radio-inline">
-               <input type="radio" name="rate" value="5">Excellent
-               </label>
-               </form>
+            <center>
                <br>
-               <button type="submit" class="btn btn-default">Submit</button>
+               <br>
+               RateMyHome
+            </center>
+            <form action="/search" method="post" class="navbar-form" role="search">
+               <div class="input-group add-on">
+                  <input id="searchbox" type="text" class="form-control" name="place" placeholder="Search">
+                  <div class="input-group-btn">
+                     <button id="searchbox-btn" class="btn btn-xs" type="submit"><i class="glyphicon glyphicon-search" onsubmit="toSecond()"></i></button>
+                  </div>
                </div>
-               </form>
-            </div>
+            </form>
          </div>
       </div>
-      </div>
-   </body>
+
+   <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>
+
+
+</body>
 </html>

@@ -1,20 +1,49 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+
 const app = express();
 const url = "mongodb://manager:123@ds123896.mlab.com:23896/melonskin"
-app.use(bodyParser.urlencoded({extended: true}));
-app.set('views',__dirname+"/views")
-app.use(express.static('public'));
-const PORT = process.env.PORT || 3000;
-app.set("view engine", "ejs");
 var db
-
 MongoClient.connect(url, function(err,res){
 	if(err) console.log(err)
 	console.log("Database created");
 	db = res
 });
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('views',__dirname+"/views")
+app.use(express.static('public'));
+const PORT = process.env.PORT || 3000;
+app.set("view engine", "ejs");
+
+
+
+
+app.use(cookieParser("my very well kept secret"))
+
+function myLogger(req, res, next) {
+   console.log("Raw Cookies: ",req.headers.cookie)
+  console.log("Cookie Parser: ",req.cookies)
+  //console.log("Signed Cookies: ",req.signedCookies)
+  if (req.body) {
+    console.log('LOG:',req.method,req.url,req.body)
+  }
+  // res.append('Set-Cookie', 'lastPage='+req.url);
+  next()
+}
+
+var sessions = {
+  "uniqueSessionID001": {name: "username", password: "pwd", cart: "$100"}
+}
+
+
+app.use(myLogger)
+
+// Generate Apache Common Log format
+app.use(morgan('common'));
 
 
 app.get('/', function (req, res) {
@@ -76,12 +105,13 @@ function getLatLng(item) {
         reject(error);
       }
       if (response.statusCode === 200) {
-      	//console.log(body)
+      	
         let fullData = JSON.parse(body);
-        if (fullData.result) {
-          //console.log(fullData.result)
+        //console.log(fullData)
+        if (fullData.results) {
+          console.log(fullData.results[0].geometry.location)
         }
-        resolve(fullData.result);
+        resolve(fullData.results[0].geometry.location);
       }
 
     });
@@ -90,7 +120,7 @@ function getLatLng(item) {
 }
 
 
-app.post('/search/:id/details/:did', function(req,res){
+app.post('/search/detail', function(req,res){
 	var itemID = req.body.itemID
 	//console.log(itemID)
 	getPlaceDetail(itemID)
@@ -116,32 +146,30 @@ app.get('/test',function(req,res){
 
 
 
-app.get('/search/:id',function(req, res){
+app.get('/search',function(req, res){
  //res.send(req.params.id)
- res.render("second_view",{data:"123.33"})
- res.redirect('/test')
+ // var geodata = req.params.id.split("+")
+ // var data = {}
+ // data.lat = geodata[0]
+ // data.lng = geodata[1]
+ // console.log(data)
+ res.render("second_view")
+ 
 })
 
 
 app.post('/search', function(req,res){
 	console.log(req.body.place)
-	res.redirect('/search/'+req.body.place)
+	getLatLng(req.body.place)
+	.then(result => {
+		res.cookie('lat',result.lat)
+		res.cookie('lng',result.lng)
+		//var place = result.lat +"+"+result.lng
+		res.redirect('/search')
+	})
+	
 })
 
-
-// // Get buiding list
-// app.get('/list_building', function (req, res) {
-// 	console.log("list_buiding GET request")
-// 	res.send('buiding list page');
-//     //res.sendFile( __dirname + "/list.html" );
-// })
-
-// // Get reviews
-// app.get('/reviews', function (req, res) {
-// 	console.log("reviews GET request")
-// 	res.send('reviews page');
-//     //res.sendFile( __dirname + "/reviews.html" );
-// })
 
 
 

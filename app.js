@@ -141,7 +141,8 @@ app.post('/search/detail', function(req,res){
 })
 
 app.get('/test',function(req,res){
-	res.send(id)
+	res.send(req.cookies)
+	// res.redirect('/search')
 })
 
 

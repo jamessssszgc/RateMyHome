@@ -141,6 +141,7 @@ function listItem(item) {
     $("<div class=' listing col-sm-8 Address' id="+item.id+ "></div class='listing col-sm-8 Address' id="+item.id+ ">").text("Address:" + item.vicinity).appendTo($(".panel.listing#"+item.id));
 
     
+    //to third page
     $("#" + item.id + ".Name").on('click', function() {
       $("#container").empty();
       $("#container2").css("background-color", "white");
@@ -214,14 +215,13 @@ function setUpPostings(item) {
 
 //set up the offset for scrolling in page 3
 $(document).ready(function(){
-  console.log(js)
-var url = window.location.href
-  $.ajax({
-        type: 'GET',
-        url:"http://localhost:3000/test",
-        success: function(data) { console.log(data);},
+  // $.ajax({
+  //       type: 'GET',
+  //       url:"http://localhost:3000/test",
+  //       success: function(data) { console.log(data);},
       
-      })
+  //     })
+  console.log(document.cookie)
   var offset = 30;
   $('#myNav li a').click(function(event) {
     event.preventDefault();

@@ -64,6 +64,7 @@ app.get('/home', function (req, res) {
    //count the number rate = 3
    //count the number rate = 4
    //count the number rate = 5
+   console.log('success');
   res.render('index')
 
 })
@@ -189,7 +190,4 @@ app.post('/search/:id/details/:did/comment',(req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
-
-
-
 

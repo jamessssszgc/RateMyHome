@@ -17,30 +17,16 @@ Object.size = function(obj) {
 };
 
 
-function supports_html5_storage() {
-  try {
-    return 'localStorage' in window && window['localStorage'] !== null;
-  } catch (e) {
-    return false;
-  }
-}
 
 
-
-function toSecond(){
-  console.log("success")
-  var url = window.location.href
-  $.ajax({
-        type: 'GET',
-        url:url,
-        success: function(data) { console.log(data);},
-      
-      })
+function getCookie() {
+  var response=document.cookie.split(';');
+  center={lat: parseFloat(response[0].slice(4)), lng: parseFloat(response[1].slice(5))};
 }
 
 function initMap() {
-  
-
+  getCookie();
+  console.log(center);
   map = new google.maps.Map(document.getElementById('map'), {
     center: center,
     zoom: zoom
@@ -207,10 +193,6 @@ function setUpPostings(item) {
 //     <div class='media-body'><h4 class='media-heading'>" + item.userID+ "</h4>\
 //     <p>" + item.content + "</p></div>")
 // }
-
-
-
-
 
 
 //set up the offset for scrolling in page 3

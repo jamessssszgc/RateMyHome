@@ -73,6 +73,7 @@ app.get('/detail/:id?', function(req,res){
 		var address = result.formatted_address
 		var postal = result.address_components[7].long_name
 		var website = result.website
+    var photo = result.photos[0].photo_reference
     //count the number rate = 1
    //count the number rate = 2
    //count the number rate = 3
@@ -82,7 +83,7 @@ app.get('/detail/:id?', function(req,res){
       if (err) return console.log(err)
       // renders index.ejs
       console.log(data)
-      res.render("third_view",{placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data})
+      res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data})
     })
 		
 	})
@@ -182,3 +183,7 @@ function getLatLng(item) {
 
   })
 }
+
+
+
+

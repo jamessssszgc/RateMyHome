@@ -152,44 +152,44 @@ function listItem(item) {
 }
 
 
-//set up for the third view
-function setUpPostings(item) {
-  $(document).ready(function(){
-    $("#Description-detail").empty();
-    //$("#Review-detail").empty();
-    $("#place_img").empty();
-  service.getDetails({placeId:item.place_id},function(place,status){
-   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    if (typeof(place.photos) !== "undefined"){
-      if (place.photos[0]){
-        var img_url = place.photos[0].getUrl({'maxWidth': 3000, 'maxHeight': 2500});
-        img_html = "<div id='img'><img src="+img_url+" style='width:600px;height:500px'></div>";
-        $(img_html).appendTo($("#place_img"));
-      }
-    }
-    else{
-      img_html = "<div id='img'><img src='./public/blackball.jpg' style='width:600px;height:500px'></div>";
-      $(img_html).appendTo($("#place_img"));
-    }
+// //set up for the third view
+// function setUpPostings(item) {
+//   $(document).ready(function(){
+//     $("#Description-detail").empty();
+//     //$("#Review-detail").empty();
+//     $("#place_img").empty();
+//   service.getDetails({placeId:item.place_id},function(place,status){
+//    if (status === google.maps.places.PlacesServiceStatus.OK) {
+//     if (typeof(place.photos) !== "undefined"){
+//       if (place.photos[0]){
+//         var img_url = place.photos[0].getUrl({'maxWidth': 3000, 'maxHeight': 2500});
+//         img_html = "<div id='img'><img src="+img_url+" style='width:600px;height:500px'></div>";
+//         $(img_html).appendTo($("#place_img"));
+//       }
+//     }
+//     else{
+//       img_html = "<div id='img'><img src='./public/blackball.jpg' style='width:600px;height:500px'></div>";
+//       $(img_html).appendTo($("#place_img"));
+//     }
 
-    //append place details 
-    $("<p> Name: "+place.name+"</p>").appendTo("#Description-detail");
-    $("<p> Address: "+place.vicinity+"</p>").appendTo("#Description-detail");
-    $("<p> Postal code: "+place.address_components[7].long_name+"</p>").appendTo("#Description-detail");
-    if (typeof(place.photos) !== "undefined"){
-      $("<p> Website: "+place.website+"</p>").appendTo("#Description-detail");
-    }
-   }
-})
+//     //append place details 
+//     $("<p> Name: "+place.name+"</p>").appendTo("#Description-detail");
+//     $("<p> Address: "+place.vicinity+"</p>").appendTo("#Description-detail");
+//     $("<p> Postal code: "+place.address_components[7].long_name+"</p>").appendTo("#Description-detail");
+//     if (typeof(place.photos) !== "undefined"){
+//       $("<p> Website: "+place.website+"</p>").appendTo("#Description-detail");
+//     }
+//    }
+// })
 
-  // //append existed user comments
-  // $.each(postings, function(i, item) {
-  //   addComment(i, item);
-  // })
-})
-  //show the third view
-  // $("#container2").toggle();
-}
+//   // //append existed user comments
+//   // $.each(postings, function(i, item) {
+//   //   addComment(i, item);
+//   // })
+// })
+//   //show the third view
+//   // $("#container2").toggle();
+// }
 
 //append comment of users
 // function addComment(i,item){

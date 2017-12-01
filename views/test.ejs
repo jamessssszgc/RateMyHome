@@ -12,6 +12,47 @@
                 };
                 var map = new google.maps.Map(document.getElementById("map"),
                     myOptions);
+  var request = {
+    location: new google.maps.LatLng(<%=lat%>, <%=lon%>),
+    radius: 500,
+    keyword: "condo"
+  };
+  var infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request,callback);
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(<%=lat%>, <%=lon%>),
+    animation: google.maps.Animation.BOUNCE 
+    // animation for bounce
+  })
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+      $("#placeholder").empty();
+      listItem(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+        $("html, body").animate({
+      scrollTop: $("#"+place.id).offset().top -50
+    }, 2000);
+    $("#placeholder").find($(".panel#"+placeid)).css("background-color", "white");
+    placeid = place.id;
+    $("#placeholder").find($(".panel#"+place.id)).css("background-color", "#C0C0C0");
+    infowindow.open(map, this);
+  });
+}
             };
             window.onload= loadMap;
         </script>

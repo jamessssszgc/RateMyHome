@@ -27,17 +27,6 @@ function supports_html5_storage() {
 
 
 
-function toSecond(){
-  console.log("success")
-  var url = window.location.href
-  $.ajax({
-        type: 'GET',
-        url:url,
-        success: function(data) { console.log(data);},
-      
-      })
-}
-
 function initMap() {
   
 
@@ -143,15 +132,13 @@ function listItem(item) {
     
     //to third page
     $("#" + item.id + ".Name").on('click', function() {
-      $("#container").empty();
-      $("#container2").css("background-color", "white");
-      $(".details").append("<h2>" + item.name + " Postings</h2><br>")
+      //$("#container").empty();
+      //$("#container2").css("background-color", "white");
       //setUpPostings(item);
-       console.log(window.location.href)
       $.ajax({
         type: 'POST',
         data: {"itemID":item.place_id},
-        url:'http://localhost:3000/home/detail',
+        url:'http://localhost:3000/search/detail',
         success: function(data) { console.log('success');},
       
       })
@@ -196,7 +183,7 @@ function setUpPostings(item) {
   // })
 })
   //show the third view
-  $("#container2").toggle();
+  // $("#container2").toggle();
 }
 
 //append comment of users
@@ -221,6 +208,7 @@ $(document).ready(function(){
   //       success: function(data) { console.log(data);},
       
   //     })
+  initMap();
   console.log(document.cookie)
   var offset = 30;
   $('#myNav li a').click(function(event) {

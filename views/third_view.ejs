@@ -20,67 +20,154 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <script src="map_script.js"></script>
+      <script src="/map_script.js"></script>
       <link rel="stylesheet" href="style3.css">
    </head>
-   <body onload="">
-      <% include ../partials/navbar %>
-      <div id="container">
-         <div id="place_img" class="img"></div>
-         <div id="Description" class="container-fluid">
-            <h1>Description</h1>
-            <div id="Description-detail"></div>
-         <div id="Review" class="container-fluid">
-               <div class="row">
-                  <div class="col-sm-2"><h1>Review</h1></div>
-                  <div class="col-sm-8"></div>
-                  <div class="col-sm-2">
-                  <button type="button" class="btn btn-default" id="comment_button" data-toggle="modal" data-target="#myModal">
-                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                  </button>
+   <body>
+      <% include ./partials/navbar %>
+ <div id="container2">
+      <div id="place_img" class="img">
+      </div>
+      <div id="info">
+         <div data-spy="scroll" data-target=".navbar" data-offset="50px">
+            <nav class="navbar navbar-inverse navbar-fixed-bottom">
+               <div class="container-fluid">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
                   </div>
-                  <div id="myModal" class="modal fade" role="dialog">
-                     <div class="modal-dialog">
-
-                     <!-- Modal content-->
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h4 class="modal-title">Write a comment</h4>
-                        </div>
-                        <div class="modal-body">
-                           <div class="form-group">
-                              <label for="comment"><h2>Comment:</h2></label>
-                              <textarea class="form-control" rows="5" id="comment"></textarea>
-                           </div>
-                           <h2>Overall rating</h2>
-                           <form>
-                           <label class="radio-inline">
-                           <input type="radio" name="optradio">Very bad
-                           </label>
-                           <label class="radio-inline">
-                           <input type="radio" name="optradio">Bad
-                           </label>
-                           <label class="radio-inline">
-                           <input type="radio" name="optradio">Average
-                           </label>
-                           <label class="radio-inline">
-                           <input type="radio" name="optradio">Good
-                           </label>
-                           <label class="radio-inline">
-                           <input type="radio" name="optradio">Excellent
-                           </label>
-                           </form>
-                        </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                     </div>
+                  <div>
+                     <div class="collapse navbar-collapse" id="myNav">
+                        <ul class="nav navbar-nav">
+                           <li ><a href="#Description">Description</a></li>
+                           <li><a href="#Review">Review</a></li>
+                           <li ><a href="#userInput">Your opinin</a></li>
+                        </ul>
                      </div>
                   </div>
-                  <div id="Review-detail"></div>
                </div>
+            </nav>
+            <div id="Description" class="container-fluid">
+               <h1>Description</h1>
+               <div id="Description-detail">
+            
+               </div>
+            </div>
+            <div id="Review" class="container-fluid">
+               <h1>Review</h1>
+
+               <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                     <div class="panel-heading">
+                        <div class="panel-title">
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Overall Rating</a>
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star"></span>
+                        </div>
+                     </div>
+                     <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                           <div class="row">
+                              <div class="side">
+                                 <div>Excellent</div>
+                              </div>
+                              <div class="middle">
+                                 <div class="bar-container">
+                                    <div class="bar-5"></div>
+                                 </div>
+                              </div>
+                              <div class="side right">
+                                 <div>0</div>
+                              </div>
+                              <div class="side">
+                                 <div>Good</div>
+                              </div>
+                              <div class="middle">
+                                 <div class="bar-container">
+                                    <div class="bar-4"></div>
+                                 </div>
+                              </div>
+                              <div class="side right">
+                                 <div>0</div>
+                              </div>
+                              <div class="side">
+                                 <div>Average</div>
+                              </div>
+                              <div class="middle">
+                                 <div class="bar-container">
+                                    <div class="bar-3"></div>
+                                 </div>
+                              </div>
+                              <div class="side right">
+                                 <div>0</div>
+                              </div>
+                              <div class="side">
+                                 <div>Bad</div>
+                              </div>
+                              <div class="middle">
+                                 <div class="bar-container">
+                                    <div class="bar-2"></div>
+                                 </div>
+                              </div>
+                              <div class="side right">
+                                 <div>0</div>
+                              </div>
+                              <div class="side">
+                                 <div>Very bad</div>
+                              </div>
+                              <div class="middle">
+                                 <div class="bar-container">
+                                    <div class="bar-1"></div>
+                                 </div>
+                              </div>
+                              <div class="side right">
+                                 <div>0</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="userInput" class="container-fluid">
+            <h1>Your opinion</h1>
+            <form action="/comment" method="POST">
+               <div class="form-group">
+                  <label for="userID">userID:</label>
+                  <textarea class="form-control" name="userID" type="text"  id="user" placeholder="What do you think"></textarea>
+                  <label for="comment">Comment:</label>
+                  <textarea class="form-control" name="reviews" type="text" rows="5" id="comment" placeholder="What do you think"></textarea>
+                  <br>
+                  <h2>Overall rating</h2>
+
+
+            <form>
+            <label class="radio-inline">
+            <input type="radio" name="l" value="1">Very bad
+            </label>
+            <label class="radio-inline">
+            <input type="radio" name="rate" value="2">Bad
+            </label>
+            <label class="radio-inline">
+            <input type="radio" name="rate" value="3">Average
+            </label>
+            <label class="radio-inline">
+            <input type="radio" name="rate" value="4">Good
+            </label>
+            <label class="radio-inline">
+            <input type="radio" name="rate" value="5">Excellent
+            </label>
+            </form>
+            <br>
+            <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+            </form>
          </div>
       </div>
    </div>

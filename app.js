@@ -52,21 +52,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
-	//find all reviews which are not empty string
-   // 	db.collection('REVIEWS').find({"reviews":{$exists:true, $ne:""}}).toArray((err, result) => {
-   //  	if (err) return console.log(err)
-   //  	// renders index.ejs
-   //  console.log(result)
-   //  	res.render('myindex', {REVIEWS:result})
-  	// })
-   
-   //count the number rate = 1
-   //count the number rate = 2
-   //count the number rate = 3
-   //count the number rate = 4
-   //count the number rate = 5
-
-   console.log('success');
+  console.log('success');
   res.render('index')
 
 
@@ -77,30 +63,32 @@ app.get('/home', function (req, res) {
 
 
 
-app.post('/search/detail', function(req,res){
-	var itemID = req.body.itemID
+app.get('/detail/:id?', function(req,res){
+	var itemID = req.params.id
 	console.log("------"+itemID)
 	getPlaceDetail(itemID)
 	.then(result =>{
+    console.log(result)
 		var name = result.vicinity
 		var address = result.formatted_address
 		var postal = result.address_components[7].long_name
 		var website = result.website
-		var details ={}
-		details.name=name
-		details.address=address
-		details.postal=postal
-		details.website=website
-		res.redirect('/search/detail')
-		//res.render("third_view",details)
+    //count the number rate = 1
+   //count the number rate = 2
+   //count the number rate = 3
+   //count the number rate = 4
+   //count the number rate = 5
+    db.collection('REVIEWS').find({"reviews":{$exists:true, $ne:""}}).toArray((err, data) => {
+      if (err) return console.log(err)
+      // renders index.ejs
+      console.log(data)
+      res.render("third_view",{placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data})
+    })
+		
 	})
 })
 
 
-app.get('/search/detail',function(req,res){
-	console.log("this is ################")
-	res.render('third_view')
-})
 
 
 
@@ -117,7 +105,6 @@ app.post('/search', function(req,res){
 	.then(result => {
 		res.cookie('lat',result.lat)
 		res.cookie('lng',result.lng)
-		//var place = result.lat +"+"+result.lng
 		res.redirect('/search')
 	})
 	
@@ -126,7 +113,7 @@ app.post('/search', function(req,res){
 
 
 //insert comment 
-app.post('/search/detail/comment',(req, res) => {
+app.post('/detail/:id/comment',(req, res) => {
 	
 	db.collection("REVIEWS").insertOne(req.body, function(err, result){
 					//continue
@@ -161,7 +148,7 @@ function getPlaceDetail(itemID) {
       	//console.log(body)
         let fullData = JSON.parse(body);
         if (fullData.result) {
-          //console.log(fullData.result)
+          console.log(fullData.result)
         }
         resolve(fullData.result);
       }

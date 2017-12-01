@@ -125,7 +125,7 @@ function listItem(item) {
     }
     $(img_html).appendTo($(".panel.listing.row#"+item.id));
     
-    $("<div class='listing col-sm-8 Name' id="+item.id+ "></div class='listing col-sm-8 Name' id="+item.id+ ">").text(item.name).appendTo($(".panel.listing#"+item.id));
+    $("<a href='detail/"+item.place_id+"'><div class='listing col-sm-8 Name' id="+item.id+ "></div class='listing col-sm-8 Name' id="+item.id+ ">").text(item.name).appendTo($(".panel.listing#"+item.id));
     $("<div class=' listing col-sm-8 Address' id="+item.id+ "></div class='listing col-sm-8 Address' id="+item.id+ ">").text("Address:" + item.vicinity).appendTo($(".panel.listing#"+item.id));
 
     
@@ -139,6 +139,12 @@ function listItem(item) {
         data: {"itemID":item.place_id},
         url:'http://localhost:3000/search/detail',
         success: function(data) { console.log('success');},
+      
+      })
+      $.ajax({
+        type: 'GET',
+        url:'http://localhost:3000/search/detail',
+        success: function(data) { console.log(data);},
       
       })
     });

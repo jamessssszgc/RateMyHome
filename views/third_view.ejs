@@ -20,8 +20,8 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <script src="/map_script.js"></script>
-      <link rel="stylesheet" href="style3.css">
+      <!-- <script src="/map_script.js"></script> -->
+      <link rel="stylesheet" href="/mystyle.css">
    </head>
    <body>
       <% include ./partials/navbar %>
@@ -52,11 +52,28 @@
             <div id="Description" class="container-fluid">
                <h1>Description</h1>
                <div id="Description-detail">
-            
+                  <p>Name: <%= name%></p>
+                  <p>Address: <%= address%></p>
+                  <p>Wesite: <%= website%></p>
+                  <p>Postal Code: <%= postal%></p>
                </div>
             </div>
             <div id="Review" class="container-fluid">
                <h1>Review</h1>
+               <div id="Review-detail">
+                  <% for (let userID in REVIEWS) { %>
+                  <div class="media">
+                     <div class='media-left'>
+                        <img src='/profile.png' class='media-object' style='width:60px'>
+                     </div>
+                     <div class='media-body'><h4 class='media-heading'><%= REVIEWS[userID].userID %></h4>
+                     <p><%= REVIEWS[userID].reviews %></p>
+                     </div>
+
+
+                  </div>
+                   <% } %>
+               </div>
 
                <div class="panel-group" id="accordion">
                   <div class="panel panel-default">
@@ -137,7 +154,7 @@
          </div>
          <div id="userInput" class="container-fluid">
             <h1>Your opinion</h1>
-            <form action="/comment" method="POST">
+            <form action="/detail/<%= placeid %>/comment" method="POST">
                <div class="form-group">
                   <label for="userID">userID:</label>
                   <textarea class="form-control" name="userID" type="text"  id="user" placeholder="What do you think"></textarea>
@@ -149,7 +166,7 @@
 
             <form>
             <label class="radio-inline">
-            <input type="radio" name="l" value="1">Very bad
+            <input type="radio" name="rate" value="1">Very bad
             </label>
             <label class="radio-inline">
             <input type="radio" name="rate" value="2">Bad

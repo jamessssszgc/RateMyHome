@@ -68,7 +68,6 @@ app.get('/detail/:id?', function(req,res){
 	console.log("------"+itemID)
 	getPlaceDetail(itemID)
 	.then(result =>{
-    console.log(result)
 		var name = result.vicinity
 		var address = result.formatted_address
 		var postal = result.address_components[7].long_name
@@ -79,7 +78,11 @@ app.get('/detail/:id?', function(req,res){
    //count the number rate = 3
    //count the number rate = 4
    //count the number rate = 5
-    db.collection('REVIEWS').find({"reviews":{$exists:true, $ne:""}}).toArray((err, data) => {
+    db.collection('REVIEWS').find({
+      $and:[
+        {"reviews":{$exists:true, $ne:""}},
+        {"placeid":req.params.id}
+        ]}).toArray((err, data) => {
       if (err) return console.log(err)
       // renders index.ejs
       console.log(data)
@@ -115,8 +118,10 @@ app.post('/search', function(req,res){
 
 //insert comment 
 app.post('/detail/:id/comment',(req, res) => {
-	
-	db.collection("REVIEWS").insertOne(req.body, function(err, result){
+  console.log(req.body)
+  console.log(req.body.userID)
+  console.log(req.body.rate)
+	db.collection("REVIEWS").insertOne({ userID: req.body.userID, reviews: req.body.reviews,rate:req.body.rate, placeid:req.params.id}, function(err, result){
 					//continue
 					if (err) return console.log(err)
 					console.log("Database inserted");
@@ -149,7 +154,7 @@ function getPlaceDetail(itemID) {
       	//console.log(body)
         let fullData = JSON.parse(body);
         if (fullData.result) {
-          console.log(fullData.result)
+          //console.log(fullData.result)
         }
         resolve(fullData.result);
       }
@@ -174,7 +179,7 @@ function getLatLng(item) {
         let fullData = JSON.parse(body);
         //console.log(fullData)
         if (fullData.results) {
-          console.log(fullData.results[0].geometry.location)
+          //console.log(fullData.results[0].geometry.location)
         }
         resolve(fullData.results[0].geometry.location);
       }

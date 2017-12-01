@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    #container { 
+      padding-top:15px; 
+      padding-left:10px; 
+      padding-right:30px; 
+      padding-bottom:40px; 
+      border: 1px solid 000000; 
+    }
+
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 18px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: auto;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+
+
+  </style>
+
+  <head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <div id="container">
+    <h1> Login Page </h1>
+    <p> Welcome to Rate My Home. </p>
+    <br>
+    
+      <form role="form" action="/login" method="post" style="max-width: 300px">
+
+        <input class="form-control" type="text" name="username" placeholder="Enter Username"/>
+
+        <input class="form-control" type="password" name="password" placeholder="Password"/>
+        <br>
+        <button type="Submit">Login</button> 
+        <button type="button" class="cancelbtn" onclick="window.location.href='/'">Cancel</button>
+      </form>
+    </div>
+
+  </body>
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</html>

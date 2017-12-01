@@ -1,11 +1,20 @@
 const express = require('express');
+var path = require('path');
+var logger = require('morgan');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const cookieParser = require('cookie-parser');
-const morgan = require('morgan');
 const request = require('request')
 
+var mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var routes = require('./routes/index');
+var users = require('./routes/users');
+
 const app = express();
+
 const url = "mongodb://manager:123@ds123896.mlab.com:23896/melonskin"
 var db
 MongoClient.connect(url, function(err,res){
@@ -42,6 +51,28 @@ var sessions = {
 
 
 app.use(myLogger)
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));app.use('/', routes);
+app.use('/', routes);
+
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// mongoose
+mongoose.connect(url);
 
 // Generate Apache Common Log format
 // app.use(morgan('common'));
@@ -54,8 +85,7 @@ app.get('/', function (req, res) {
 app.get('/home', function (req, res) {
   console.log('success');
   res.render('index')
-
-
+  
 })
 
 
@@ -125,7 +155,7 @@ app.post('/detail/:id/comment',(req, res) => {
 					//continue
 					if (err) return console.log(err)
 					console.log("Database inserted");
-					res.redirect('/')
+					res.redirect('/detail/'+req.params.id);
 				});
 
 	

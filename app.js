@@ -53,19 +53,22 @@ app.get('/', function (req, res) {
 
 app.get('/home', function (req, res) {
 	//find all reviews which are not empty string
-   	db.collection('REVIEWS').find({"reviews":{$exists:true, $ne:""}}).toArray((err, result) => {
-    	if (err) return console.log(err)
-    	// renders index.ejs
-    console.log(result)
-    	res.render('myindex', {REVIEWS:result})
-  	})
+   // 	db.collection('REVIEWS').find({"reviews":{$exists:true, $ne:""}}).toArray((err, result) => {
+   //  	if (err) return console.log(err)
+   //  	// renders index.ejs
+   //  console.log(result)
+   //  	res.render('myindex', {REVIEWS:result})
+  	// })
    
    //count the number rate = 1
    //count the number rate = 2
    //count the number rate = 3
    //count the number rate = 4
    //count the number rate = 5
-  // res.render('index')
+
+   console.log('success');
+  res.render('index')
+
 
 })
 

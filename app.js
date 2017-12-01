@@ -125,7 +125,7 @@ app.post('/detail/:id/comment',(req, res) => {
 					//continue
 					if (err) return console.log(err)
 					console.log("Database inserted");
-					res.redirect('/')
+					res.redirect('/detail/'+req.params.id)
 				});
 
 	

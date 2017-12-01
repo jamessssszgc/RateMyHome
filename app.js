@@ -69,10 +69,18 @@ app.get('/detail/:id?', function(req,res){
 	getPlaceDetail(itemID)
 	.then(result =>{
 		var name = result.vicinity
+    console.log(name)
 		var address = result.formatted_address
+    console.log(address)
 		var postal = result.address_components[7].long_name
-		var website = result.website
-    var photo = result.photos[0].photo_reference
+    console.log(postal)
+    var website
+    if (typeof result.website !== 'undefined' && result.website) {website = result.website}
+		
+    console.log(website)
+    var photo
+    if (typeof result.photos[0] !== 'undefined' && result.photos[0]) {photo = result.photos[0].photo_reference}
+      console.log(photo)
     //count the number rate = 1
    //count the number rate = 2
    //count the number rate = 3
@@ -154,7 +162,7 @@ function getPlaceDetail(itemID) {
       	//console.log(body)
         let fullData = JSON.parse(body);
         if (fullData.result) {
-          //console.log(fullData.result)
+          console.log(fullData.result)
         }
         resolve(fullData.result);
       }
@@ -177,7 +185,7 @@ function getLatLng(item) {
       if (response.statusCode === 200) {
       	
         let fullData = JSON.parse(body);
-        //console.log(fullData)
+        console.log(fullData)
         if (fullData.results) {
           //console.log(fullData.results[0].geometry.location)
         }

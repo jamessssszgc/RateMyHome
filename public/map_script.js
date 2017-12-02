@@ -8,16 +8,6 @@ var hometype = 'condo';
 var placeid = 0;
 var service;
 
-Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
-};
-
-
-
 
 
 function getCookie() {
@@ -121,7 +111,7 @@ function listItem(item) {
       img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src="+img_url+" height='120px' width='120px'></div>";
     }
     else{
-      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./public/blackball.jpg' height='120px' width='120px'></div>";
+      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./blackball.jpg' height='120px' width='120px'></div>";
     }
     $(img_html).appendTo($(".panel.listing.row#"+item.id));
     
@@ -129,86 +119,14 @@ function listItem(item) {
     $("<div class=' listing col-sm-8 Address' id="+item.id+ "></div class='listing col-sm-8 Address' id="+item.id+ ">").text("Address:" + item.vicinity).appendTo($(".panel.listing#"+item.id));
 
     
-    //to third page
-    $("#" + item.id + ".Name").on('click', function() {
-      //$("#container").empty();
-      //$("#container2").css("background-color", "white");
-      //setUpPostings(item);
-      $.ajax({
-        type: 'POST',
-        data: {"itemID":item.place_id},
-        url:'http://localhost:3000/search/detail',
-        success: function(data) { console.log('success');},
-      
-      })
-      $.ajax({
-        type: 'GET',
-        url:'http://localhost:3000/search/detail',
-        success: function(data) { console.log(data);},
-      
-      })
-    });
   })
 }
 
 
-// //set up for the third view
-// function setUpPostings(item) {
-//   $(document).ready(function(){
-//     $("#Description-detail").empty();
-//     //$("#Review-detail").empty();
-//     $("#place_img").empty();
-//   service.getDetails({placeId:item.place_id},function(place,status){
-//    if (status === google.maps.places.PlacesServiceStatus.OK) {
-//     if (typeof(place.photos) !== "undefined"){
-//       if (place.photos[0]){
-//         var img_url = place.photos[0].getUrl({'maxWidth': 3000, 'maxHeight': 2500});
-//         img_html = "<div id='img'><img src="+img_url+" style='width:600px;height:500px'></div>";
-//         $(img_html).appendTo($("#place_img"));
-//       }
-//     }
-//     else{
-//       img_html = "<div id='img'><img src='./public/blackball.jpg' style='width:600px;height:500px'></div>";
-//       $(img_html).appendTo($("#place_img"));
-//     }
-
-//     //append place details 
-//     $("<p> Name: "+place.name+"</p>").appendTo("#Description-detail");
-//     $("<p> Address: "+place.vicinity+"</p>").appendTo("#Description-detail");
-//     $("<p> Postal code: "+place.address_components[7].long_name+"</p>").appendTo("#Description-detail");
-//     if (typeof(place.photos) !== "undefined"){
-//       $("<p> Website: "+place.website+"</p>").appendTo("#Description-detail");
-//     }
-//    }
-// })
-
-//   // //append existed user comments
-//   // $.each(postings, function(i, item) {
-//   //   addComment(i, item);
-//   // })
-// })
-//   //show the third view
-//   // $("#container2").toggle();
-// }
-
-//append comment of users
-// function addComment(i,item){
-//    $("<div class='media' id=" + i + ">").appendTo("#Review-detail");
-//     $("#" + i).append("<div class='media-left'><img src='./public/profile.png' \
-//       class='media-object' style='width:60px'></dv>\
-//     <div class='media-body'><h4 class='media-heading'>" + item.userID+ "</h4>\
-//     <p>" + item.content + "</p></div>")
-// }
 
 
 //set up the offset for scrolling in page 3
 $(document).ready(function(){
-  // $.ajax({
-  //       type: 'GET',
-  //       url:"http://localhost:3000/test",
-  //       success: function(data) { console.log(data);},
-      
-  //     })
   initMap();
   console.log(document.cookie)
   var offset = 30;

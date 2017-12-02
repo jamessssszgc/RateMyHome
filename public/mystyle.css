@@ -172,11 +172,11 @@ textarea.form-control {
 }
 
 /* Individual bars */
-.bar-5 {width: 10%; height: 18px; background-color: grey;}
-.bar-4 {width: 10%; height: 18px; background-color: grey;}
-.bar-3 {width: 10%; height: 18px; background-color: grey;}
-.bar-2 {width: 10%; height: 18px; background-color: grey;}
-.bar-1 {width: 10%; height: 18px; background-color: grey;}
+.bar-5 {width: 0%; height: 18px; background-color: grey;}
+.bar-4 {width: 0%; height: 18px; background-color: grey;}
+.bar-3 {width: 0%; height: 18px; background-color: grey;}
+.bar-2 {width: 0%; height: 18px; background-color: grey;}
+.bar-1 {width: 0%; height: 18px; background-color: grey;}
 
 @media (max-width: 400px) {
     .side, .middle {

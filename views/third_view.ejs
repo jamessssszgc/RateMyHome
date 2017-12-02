@@ -20,7 +20,7 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <script src="/map_script.js"></script>
+      <script src="/detail.js"></script>
       <link rel="stylesheet" href="/mystyle.css">
       <style>
          .bar-1 {width: <%=bar[0]%>%;}
@@ -157,9 +157,12 @@
                </div>
             </div>
          </div>
+         
+
          <div id="userInput" class="container-fluid">
             <h1>Your opinion</h1>
-            <form action="/detail/<%= placeid %>/comment" method="POST">
+            <h2 id="noinput"> You have to log in first. </h2>
+            <form id="myinput" action="/detail/<%= placeid %>/comment" method="POST">
                <div class="form-group">
                   <label for="comment">Comment:</label>
                   <textarea class="form-control" name="reviews" type="text" rows="5" id="comment" placeholder="What do you think"></textarea>

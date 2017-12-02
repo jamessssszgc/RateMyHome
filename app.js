@@ -90,9 +90,6 @@ app.get('/home', function (req, res) {
 
 
 
-
-
-
 app.get('/detail/:id?', function(req,res){
 	var itemID = req.params.id
 	getPlaceDetail(itemID)

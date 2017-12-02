@@ -23,6 +23,7 @@ function getCookie(name) {
 
 function initMap() {
   $("#placeholder").empty();
+
   var mylat = getCookie("lat");
   var mylng = getCookie("lng");
   center = {lat:parseFloat(mylat),lng:parseFloat(mylng)}
@@ -71,6 +72,7 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
+
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     map: map,
@@ -78,28 +80,29 @@ function createMarker(place) {
   });
 
   google.maps.event.addListener(marker, 'click', function() {
+
     infowindow.setContent(place.name);
-        $("html, body").animate({
-      scrollTop: $("#"+place.id).offset().top -50
-    }, 2000);
-    $("#placeholder").find($(".panel#"+placeid)).css("background-color", "white");
-    placeid = place.id;
-    $("#placeholder").find($(".panel#"+place.id)).css("background-color", "#C0C0C0");
+
+    $("html, body").animate( { scrollTop: $("#" + place.id).offset().top - 50 }, 2000);
+    $("#" + place.id).css("background-color", "#C0C0C0");
+
     infowindow.open(map, this);
+
   });
 }
 
 function setRadius(r) {
-  radius = r;
-  if (r == 2000)
-    zoom = 14;
-  if (r == 1000)
-    zoom = 15;
-  if (r == 500)
-    zoom = 15;
+  switch (r) {
+    case 2000:
+      zoom = 14; break;
+    case 1000:
+      zoom = 15; break;
+    case 500:
+      zoom = 15; break;
+  }
   initMap();
+  radius = r;
 }
-
 
 
 function setHomeType(t) {
@@ -110,26 +113,30 @@ function setHomeType(t) {
 
 //list all places around
 function listItem(item) {
+
   $(document).ready( function() {
-    $("<div class='panel listing row' id="+item.id+ "></div class='panel listing row' id="+item.id+ ">").appendTo("#placeholder");
+
+    $("#placeholder").append("<div class='panel listing row' id=" + item.id + "></div>");
+
     var img_html = "";
+
     if (typeof(item.photos) !== "undefined"){
       var img_url = item.photos[0].getUrl({'maxWidth': 120, 'maxHeight': 120});
-      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src="+img_url+" height='120px' width='120px'></div>";
+      img_html = "<div class='imageholder col-sm-4' ><img src=" + img_url + " height='120px' width='120px'></div>";
     }
     else{
-      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./blackball.jpg' height='120px' width='120px'></div>";
+      img_html = "<div class='imageholder col-sm-4' ><img src='./blackball.jpg' height='120px' width='120px'></div>";
     }
-    $(img_html).appendTo($(".panel.listing.row#"+item.id));
-    
-    $("<a href='detail/"+item.place_id+"'><div class='listing col-sm-8 Name' id="+item.id+ "></div class='listing col-sm-8 Name' id="+item.id+ ">").text(item.name).appendTo($(".panel.listing#"+item.id));
-    $("<div class=' listing col-sm-8 Address' id="+item.id+ "></div class='listing col-sm-8 Address' id="+item.id+ ">").text("Address:" + item.vicinity).appendTo($(".panel.listing#"+item.id));
 
-    
+    var place_name = "<div class='listing col-sm-8 Name' ><a href='detail/" + item.place_id + "'>" + item.name + "</a><div>";
+    var place_address = "<div class=' listing col-sm-8 Address' >" + item.vicinity + "</div>";
+
+    $("#" + item.id).append(img_html);
+    $("#" + item.id).append(place_name);
+    $("#" + item.id).append(place_address);
+
   })
 }
-
-
 
 
 //set up the offset for scrolling in page 3

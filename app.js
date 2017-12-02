@@ -174,7 +174,14 @@ app.delete('/detail/:placeid/:userid',(req,res) =>{
   db.collection("REVIEWS").remove(
   {userID:req.params.userid,placeid:req.params.placeid}
     )
-  res.redirect('/')
+  res.redirect('/detail/'+req.params.placeid)
+});3
+
+app.put('/detail/:placeid/:userid',(req,res) =>{
+  console.log(req.params.placeid)
+  console.log(req.params.userid)
+  
+  res.redirect('/detail/'+req.params.placeid)
 });3
 
 

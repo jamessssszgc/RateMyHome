@@ -185,7 +185,6 @@ hr{
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
     <div class="container">
@@ -196,10 +195,11 @@ hr{
 
             <form class="form-signin" action="/register" method="post">
                 <span id="reauth-email" class="reauth-email"></span>
-                <p class="input_title">Username</p>
+                <label class="input_title">Username</label>
                 <input type="text" id="inputEmail" class="login_box" placeholder="Username" name="username" required autofocus>
-                <p id="reg_flag"> Same usrname </p>
-                <p class="input_title">Password</p>
+                <p id="reg_flag"><font size="3" color="red"> This username is already registered </p>
+                
+                <label class="input_title">Password</label>
                 <input type="password" id="inputPassword" class="login_box" placeholder="Password" name="password" required>
                 <!-- <p class="input_title">Repeat Password</p>
                 <input type="password" id="repeatpwd" class="login_box" placeholder="Your Password Again" required> -->
@@ -217,4 +217,5 @@ hr{
   </body>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="register.js"></script>
 </html>

@@ -80,8 +80,8 @@
                      </div>
 
                      
-                     <form action="/detail/<%= REVIEWS[userID].placeid %>/<%= REVIEWS[userID].userID %>/?_method=DELETE" method="POST">
-                     <button class="btn btn-default">DELETE!</button>
+                     <form id="form_<%= REVIEWS[userID].userID %>" action="/detail/<%= REVIEWS[userID].placeid %>/<%= REVIEWS[userID].userID %>/?_method=DELETE" method="POST">
+                     <button id="button_<%= REVIEWS[userID].userID %>" class="button btn btn-default disabled">DELETE!</button>
                     </form>
                   </div>
                    <% } %>

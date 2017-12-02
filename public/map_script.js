@@ -7,6 +7,7 @@ var center = Bahen;
 var hometype = 'condo';
 var placeid = 0;
 var service;
+var userid = '';
 
 Object.size = function(obj) {
     var size = 0, key;
@@ -16,18 +17,18 @@ Object.size = function(obj) {
     return size;
 };
 
-
-
-
-
-function getCookie() {
-  var response=document.cookie.split(';');
-  center={lat: parseFloat(response[0].slice(4)), lng: parseFloat(response[1].slice(5))};
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
 
+
 function initMap() {
-  getCookie();
+  var mylat = getCookie("lat");
+  var mylng = getCookie("lng");
+  center = {lat:parseFloat(mylat),lng:parseFloat(mylng)}
   console.log(center);
   map = new google.maps.Map(document.getElementById('map'), {
     center: center,
@@ -121,7 +122,7 @@ function listItem(item) {
       img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src="+img_url+" height='120px' width='120px'></div>";
     }
     else{
-      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./public/blackball.jpg' height='120px' width='120px'></div>";
+      img_html = "<div class='imageholder col-sm-4' id="+item.id+"><img src='./blackball.jpg' height='120px' width='120px'></div>";
     }
     $(img_html).appendTo($(".panel.listing.row#"+item.id));
     
@@ -209,6 +210,24 @@ $(document).ready(function(){
   //       success: function(data) { console.log(data);},
       
   //     })
+  userid = getCookie("userid");
+  if (userid != '') {
+    dispuser = "Login as " + userid;
+    document.getElementById('loginbtn').style.display= 'none';
+    document.getElementById('registerbtn').style.display= 'none';
+    document.getElementById('loginas').innerHTML=dispuser;
+    document.getElementById('logoutbtn').style.visibility="visible";
+    
+  } else {
+    document.getElementById('loginbtn').style.visibility="visible";
+    document.getElementById('registerbtn').style.visibility="visible";
+    document.getElementById('loginas').innerHTML="";
+    document.getElementById('logoutbtn').style.display= 'none';
+
+  }
+
+
+
   initMap();
   console.log(document.cookie)
   var offset = 30;
@@ -236,6 +255,7 @@ function topFunction() {
     document.documentElement.scrollTop = 0; 
 
 }
+
 
 
 

@@ -79,7 +79,10 @@
                      <p><%= REVIEWS[userID].reviews %></p>
                      </div>
 
-
+                     
+                     <form action="/detail/<%= REVIEWS[userID].placeid %>/<%= REVIEWS[userID].userID %>/?_method=DELETE" method="POST">
+                     <button class="btn btn-default">DELETE!</button>
+                    </form>
                   </div>
                    <% } %>
                </div>

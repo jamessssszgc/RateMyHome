@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const cookieParser = require('cookie-parser');
 const request = require('request')
+const methodOverride = require("method-override");
 
-var mongoose = require('mongoose');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -14,7 +14,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 const app = express();
-
+app.use(methodOverride("_method"));
 const url = "mongodb://manager:123@ds123896.mlab.com:23896/melonskin"
 var db
 MongoClient.connect(url, function(err,res){
@@ -166,8 +166,17 @@ app.post('/detail/:id/comment',(req, res) => {
 					res.redirect('/detail/'+req.params.id);
 				});
 
-	
 });
+
+app.delete('/detail/:placeid/:userid',(req,res) =>{
+  console.log(req.params.placeid)
+  console.log(req.params.userid)
+  db.collection("REVIEWS").remove(
+  {userID:req.params.userid,placeid:req.params.placeid}
+    )
+  res.redirect('/')
+});3
+
 
 
 app.listen(PORT, () => {

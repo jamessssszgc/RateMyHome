@@ -8,6 +8,7 @@ var hometype = 'condo';
 var placeid = 0;
 var service;
 var userid = '';
+var reg_err = 0;
 
 
 
@@ -21,7 +22,7 @@ function getCookie(name) {
 
 
 function initMap() {
-	$("#placeholder").empty();
+  $("#placeholder").empty();
   var mylat = getCookie("lat");
   var mylng = getCookie("lng");
   center = {lat:parseFloat(mylat),lng:parseFloat(mylng)}
@@ -135,7 +136,8 @@ function listItem(item) {
 $(document).ready(function(){
 
   userid = getCookie("userid");
-  if (userid != '') {
+  reg_err = getCookie("reg_err");
+  if (userid != '' && userid!=null) {
     dispuser = "Login as " + userid;
     document.getElementById('loginbtn').style.display= 'none';
     document.getElementById('registerbtn').style.display= 'none';
@@ -149,6 +151,12 @@ $(document).ready(function(){
     document.getElementById('logoutbtn').style.display= 'none';
 
   }
+
+  // if (reg_err == 1) {
+  // 	document.getElementById('reg_flag').style.visibility="visible";
+  // } else {
+  // 	document.getElementById('reg_flag').style.display= 'none';
+  // }
 
   initMap();
   console.log(document.cookie)

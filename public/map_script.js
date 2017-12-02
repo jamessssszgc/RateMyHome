@@ -21,6 +21,7 @@ function getCookie(name) {
 
 
 function initMap() {
+	$("#placeholder").empty();
   var mylat = getCookie("lat");
   var mylng = getCookie("lng");
   center = {lat:parseFloat(mylat),lng:parseFloat(mylng)}

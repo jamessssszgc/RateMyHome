@@ -34,7 +34,10 @@ function sleep (time) {
 }
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    // console.log("successfully logged in")
+    
+    console.log("Successfully login as "+req.body.username);
+    res.cookie('userid', req.body.username);
+
     // res.send("Successfully logged in, redirecting...")
     // sleep(100).then(() => {
     //     // Do something after the sleep!
@@ -45,6 +48,7 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 router.get('/logout', function(req, res) {
     req.logout();
+    res.cookie('userid', '');
     res.redirect('/');
 });
 

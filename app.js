@@ -79,12 +79,20 @@ mongoose.connect(url);
 
 
 app.get('/', function (req, res) {
-	res.redirect('/home');
+  // console.log("!!!!!!!!!!!!!!!!!!!!!!!");
+  // db.collection("announcement").find().toArray(function(err, res) {
+  //   console.log(res);
+  // })
+	res.redirect('/home')
 });
 
 app.get('/home', function (req, res) {
-  console.log('success');
-  res.render('index')
+  // console.log('success');
+
+    db.collection("announcement").find().toArray(function(err, data) {
+      if (err) console.log(err);
+      res.render('index',{announcement:data});
+  })
   
 })
 
@@ -135,7 +143,6 @@ app.get('/detail/:id?', function(req,res){
 })
 
 
-
 app.get('/search',function(req, res){
 	res.render("second_view")
 })
@@ -152,7 +159,6 @@ app.post('/search', function(req,res){
 	})
 	
 })
-
 
 
 //insert comment 

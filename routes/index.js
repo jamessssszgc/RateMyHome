@@ -4,16 +4,17 @@ var Account = require('../models/account');
 var router = express.Router();
 
 
-router.get('/', function (req, res) {
-    res.cookie("register_id", 0);
-    res.render('index', { user : req.user });
-});
+// router.get('/', function (req, res) {
+//     res.cookie("register_id", 0);
+//     res.render('index', { user : req.user });
+// });
 
 router.get('/register', function(req, res) {
     res.render('register', { });
 });
 
 router.post('/register', function(req, res) {
+    res.cookie("register_id", 0);
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
         if (err) {
             res.cookie("register_id", 1);
@@ -46,13 +47,13 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
     //     // Do something after the sleep!
     //     res.redirect('./home.html');
     // });
-    res.redirect('/');
+    res.redirect('/home');
 });
 
 router.get('/logout', function(req, res) {
     req.logout();
     res.cookie('userid', '');
-    res.redirect('/');
+    res.redirect('/home');
 });
 
 

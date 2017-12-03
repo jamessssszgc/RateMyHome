@@ -140,7 +140,6 @@ function listItem(item) {
 
 //set up the offset for scrolling in page 3
 $(document).ready(function(){
-
   userid = getCookie("userid");
   if (userid != '' && userid!=null) {
     dispuser = "Login as " + userid;

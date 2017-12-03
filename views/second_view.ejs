@@ -1,39 +1,25 @@
 <!DOCTYPE html>
 <html>
-   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script>
-   <head>
-      <style>
-         @media #screen and (min-width: 1000px) {
-         /*body {
-         background-color: lightgreen;
-         }*/
-         }
-      </style>
-      <title>Place searches</title>
-      <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-      <meta charset="utf-8">
-      <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <!-- jQuery library -->
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-      <!-- Latest compiled JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <script src="/map_script.js"></script>
-     <!--  <script src="./public/routes/index.js"></script> -->
-      <link rel="stylesheet" href="style2.css">
-   </head>
-   <body>
-   <body>
-      <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>
-      <% include ./partials/navbar %>
-      <% include ./partials/navbar2 %>
+<head>
+   <% include ./partials/head %>
+   <script src="map_script.js"></script>
+   <link rel="stylesheet" href="/style2.css">
+</head>
+<body>
+   
+   <% include ./partials/navbar %>
+   <% include ./partials/navbar2 %>
+
    <div id="container">
 
       <div id='map'></div>
-      <div id='placeholder'></div>
-      </div>
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places&callback=initMap" async defer></script>
 
-   </body>
+      <div id='placeholder'></div>
+
+      <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>
+   </div>
+      
+
+</body>
 </html>

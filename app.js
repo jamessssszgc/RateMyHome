@@ -79,10 +79,6 @@ mongoose.connect(url);
 
 
 app.get('/', function (req, res) {
-  // console.log("!!!!!!!!!!!!!!!!!!!!!!!");
-  // db.collection("announcement").find().toArray(function(err, res) {
-  //   console.log(res);
-  // })
 	res.redirect('/home')
 });
 
@@ -137,6 +133,7 @@ app.get('/detail/:id?', function(req,res){
       setTimeout(function(){
         res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data,rate:rate,avg:avg,bar:bar,method:method})
       },1000)
+
     })
 		
 	})

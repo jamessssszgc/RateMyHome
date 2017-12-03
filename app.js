@@ -79,12 +79,20 @@ mongoose.connect(url);
 
 
 app.get('/', function (req, res) {
-	res.redirect('/home');
+  // console.log("!!!!!!!!!!!!!!!!!!!!!!!");
+  // db.collection("announcement").find().toArray(function(err, res) {
+  //   console.log(res);
+  // })
+	res.redirect('/home')
 });
 
 app.get('/home', function (req, res) {
-  console.log('success');
-  res.render('index')
+  // console.log('success');
+
+    db.collection("announcement").find().toArray(function(err, data) {
+      if (err) console.log(err);
+      res.render('index',{announcement:data});
+  })
   
 })
 
@@ -113,17 +121,17 @@ app.get('/detail/:id?', function(req,res){
         {"reviews":{$exists:true, $ne:""}},
         {"placeid":req.params.id}
         ]}).toArray((err, data) => {
-      if (err) return console.log(err)
-      // renders index.ejs
-      console.log(data)
-      var rate = [0,0,0,0,0]
-      for (var i = 0; i < data.length; i++ ){
-        if (data[i].rate == "1") rate[0]++
-        if (data[i].rate == "2") rate[1]++
-        if (data[i].rate == "3") rate[2]++
-        if (data[i].rate == "4") rate[3]++
-        if (data[i].rate == "4") rate[4]++
-      }
+          if (err) return console.log(err)
+          // renders index.ejs
+          console.log(data)
+          var rate = [0,0,0,0,0]
+          for (var i = 0; i < data.length; i++ ){
+            if (data[i].rate == "1") rate[0]++
+            if (data[i].rate == "2") rate[1]++
+            if (data[i].rate == "3") rate[2]++
+            if (data[i].rate == "4") rate[3]++
+            if (data[i].rate == "4") rate[4]++
+          }
       var sum = rate.reduce((a, b) => a + b, 0);
       var avg = (rate[0]+rate[1]*2+rate[2]*3+rate[3]*4+rate[4]*5)/sum
       var bar = [(rate[0]/sum)*100,(rate[1]/sum)*100,(rate[2]/sum)*100,(rate[3]/sum)*100,(rate[4]/sum)*100]
@@ -133,7 +141,6 @@ app.get('/detail/:id?', function(req,res){
 		
 	})
 })
-
 
 
 app.get('/search',function(req, res){
@@ -152,7 +159,6 @@ app.post('/search', function(req,res){
 	})
 	
 })
-
 
 
 //insert comment 

@@ -83,9 +83,7 @@
                      <form id="<%= REVIEWS[userID].userID %>" action="/detail/<%= REVIEWS[userID].placeid %>/<%= REVIEWS[userID].userID %>/?_method=DELETE" method="POST">
                      <button id="button_<%= REVIEWS[userID].userID %>" class="button btn btn-default disabled">DELETE!</button>
                     </form>
-                    <form id="<%= REVIEWS[userID].userID %>" action="/detail/<%= REVIEWS[userID].placeid %>/<%= REVIEWS[userID].userID %>/?_method=PUT" method="POST">
-                     <button id="button_<%= REVIEWS[userID].userID %>" class="button btn btn-default disabled">EDIT!</button>
-                    </form>
+                    
                   </div>
                    <% } %>
                </div>
@@ -169,7 +167,7 @@
          <div id="userInput" class="container-fluid">
             <h1>Your opinion</h1>
             <h2 id="noinput"> You have to log in first. </h2>
-            <form id="myinput" action="/detail/<%= placeid %>/comment" method="POST">
+            <form id="myinput" action="/detail/<%= placeid %>/<%= method %>" method="POST">
                <div class="form-group">
                   <label for="comment">Comment:</label>
                   <textarea class="form-control" name="reviews" type="text" rows="5" id="comment" placeholder="What do you think"></textarea>

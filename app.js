@@ -102,11 +102,8 @@ app.get('/detail/:id?', function(req,res){
     var photo
     if (typeof result.photos !== 'undefined' && result.photos) {
       photo = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=" + result.photos[0].photo_reference+"&key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ"
-    
     }
-    else {
-      photo = "/blackball.jpg"
-    }
+    else { photo = "/blackball.jpg"}
 
     db.collection('REVIEWS').find({
       $and:[
@@ -114,21 +111,22 @@ app.get('/detail/:id?', function(req,res){
         {"placeid":req.params.id}
         ]}).toArray((err, data) => {
       if (err) return console.log(err)
-      // renders index.ejs
-      console.log(data)
       var rate = [0,0,0,0,0]
+      var method = ''
       for (var i = 0; i < data.length; i++ ){
         if (data[i].rate == "1") rate[0]++
         if (data[i].rate == "2") rate[1]++
         if (data[i].rate == "3") rate[2]++
         if (data[i].rate == "4") rate[3]++
         if (data[i].rate == "4") rate[4]++
+        if (data[i].userID == req.cookies.userid) method= req.cookies.userid+'/?_method=PUT'
       }
+      if (method == '') method = 'comment'
+
       var sum = rate.reduce((a, b) => a + b, 0);
       var avg = (rate[0]+rate[1]*2+rate[2]*3+rate[3]*4+rate[4]*5)/sum
       var bar = [(rate[0]/sum)*100,(rate[1]/sum)*100,(rate[2]/sum)*100,(rate[3]/sum)*100,(rate[4]/sum)*100]
-      console.log(bar)
-      res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data,rate:rate,avg:avg,bar:bar})
+      res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data,rate:rate,avg:avg,bar:bar,method:method})
     })
 		
 	})
@@ -168,6 +166,7 @@ app.post('/detail/:id/comment',(req, res) => {
 
 });
 
+
 app.delete('/detail/:placeid/:userid',(req,res) =>{
   console.log(req.params.placeid)
   console.log(req.params.userid)
@@ -178,9 +177,17 @@ app.delete('/detail/:placeid/:userid',(req,res) =>{
 });3
 
 app.put('/detail/:placeid/:userid',(req,res) =>{
-  console.log(req.params.placeid)
+  console.log("updat"+req.params.placeid)
   console.log(req.params.userid)
-  
+  db.collection("REVIEWS").update(
+  {$and:[{userID:req.params.userid,placeid:req.params.placeid}]},
+  { userID:req.params.userid,
+    placeid:req.params.placeid,
+    rate: req.body.rate,
+    reviews: req.body.reviews
+  },
+  {upsert: true}
+  )
   res.redirect('/detail/'+req.params.placeid)
 });3
 

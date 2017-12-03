@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  console.log("===================== working on third view")
   userid = getCookie("userid");
   if (userid != '') {
     $("#myinput").show();

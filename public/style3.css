@@ -1,17 +1,131 @@
-#place_img {
-    display: flex;
-    margin: auto;
-    padding-top: 50px;
-    padding-left: 100px;
-}
-#Description{
-    position: relative;
-    top:100px;
-}
-#firstnav {
-	background-color: #FFFFFF;
+html, body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
 }
 
-.number {
-	text-align: center;
+/* --- Main blocks --- */
+#container {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	position: absolute;
+	margin-bottom:50px;
 }
+
+
+#place_img {
+	display: flex;
+	margin: auto;
+	padding-top: 50px;
+	padding-left: 100px;
+}
+
+/* --- Infromation and Review Parts --- */
+
+.media {
+	padding-left: 15%;
+}
+
+textarea.form-control {
+    height: 300px;
+}
+
+.heading {
+    font-size: 25px;
+    margin-right: 25px;
+}
+
+/* Three column layout */
+.side {
+    float: left;
+    width: 15%;
+    margin-top:10px;
+    padding-left: 20px;
+}
+
+.middle {
+    margin-top:10px;
+    float: left;
+    width: 70%;
+}
+
+.right {
+    text-align: center;
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* The bar container */
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 0%; height: 18px; background-color: grey;}
+.bar-4 {width: 0%; height: 18px; background-color: grey;}
+.bar-3 {width: 0%; height: 18px; background-color: grey;}
+.bar-2 {width: 0%; height: 18px; background-color: grey;}
+.bar-1 {width: 0%; height: 18px; background-color: grey;}
+
+/* --- toTop buttom --- */
+#toTop {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #E0FFFF;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+
+}
+
+#toTop:hover {
+    background-color: #DCDCDC;
+}
+
+/* --- media --- */
+
+@media screen and (max-width: 559px) {
+    .panel-body .listing{
+        display: None;
+    }
+}
+
+@media only screen and (max-width:768px) {
+	.imageholder{
+		display:none;
+	}
+	.listing.col-sm-8 {
+		font-size:1em;
+		left:-150px;
+	}
+   
+}
+
+@media (max-width: 400px) {
+    .side, .middle {
+        width: 100%;
+    }
+    .right {
+        display: none;
+    }
+}
+
+

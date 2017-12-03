@@ -79,6 +79,7 @@ mongoose.connect(url);
 
 
 app.get('/', function (req, res) {
+  console.log("hi")
 	res.redirect('/home');
 });
 
@@ -127,8 +128,9 @@ app.get('/detail/:id?', function(req,res){
       var sum = rate.reduce((a, b) => a + b, 0);
       var avg = (rate[0]+rate[1]*2+rate[2]*3+rate[3]*4+rate[4]*5)/sum
       var bar = [(rate[0]/sum)*100,(rate[1]/sum)*100,(rate[2]/sum)*100,(rate[3]/sum)*100,(rate[4]/sum)*100]
-      console.log(bar)
+      // console.log("================== this is name: " + name)
       res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data,rate:rate,avg:avg,bar:bar})
+      console.log(" ===================== finished rending third view")
     })
 		
 	})

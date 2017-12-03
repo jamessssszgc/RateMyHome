@@ -21,7 +21,8 @@ function getCookie(name) {
 
 
 function initMap() {
-  
+  $("#placeholder").empty();
+
   var mylat = getCookie("lat");
   var mylng = getCookie("lng");
   center = {lat:parseFloat(mylat),lng:parseFloat(mylng)}
@@ -139,7 +140,6 @@ function listItem(item) {
 
 //set up the offset for scrolling in page 3
 $(document).ready(function(){
-
   userid = getCookie("userid");
   if (userid != '') {
     dispuser = "Login as " + userid;

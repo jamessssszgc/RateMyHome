@@ -2,9 +2,12 @@ $(document).ready(function(){
 
   console.log("===================== working on third view")
   userid = getCookie("userid");
-  if (userid != '') {
+  if (userid != '' && userid!=null) {
     $("#myinput").show();
     $("#noinput").hide();
+    $(".button").prop("disabled",true)
+    $("#button_"+userid).prop("disabled",false)
+    $("#button_"+userid).removeClass("btn btn-default disabled").addClass("btn btn-default");
     dispuser = "Login as " + userid;
     document.getElementById('loginbtn').style.display= 'none';
     document.getElementById('registerbtn').style.display= 'none';
@@ -14,6 +17,7 @@ $(document).ready(function(){
   } else {
     $("#myinput").hide();
     $("#noinput").show();
+
     document.getElementById('loginbtn').style.visibility="visible";
     document.getElementById('registerbtn').style.visibility="visible";
     document.getElementById('loginas').innerHTML="";

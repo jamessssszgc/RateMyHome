@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIoXZqb6UZnfYX9_KalDVjxFnjS8VeSRQ&libraries=places" async defer></script> -->
 <head>
     <% include partials/head %>
     <link rel="stylesheet" href="/style.css">
@@ -14,20 +12,29 @@
    <% include partials/navbar %>
 
       <div id="container">
-          <center>
-             <br>
-             <br>
-             RateMyHome
-          </center>
+         <div id="firstview">
+            <div id="announcement" style="color:#0000FF">
+              <h3>Announcement</h3>
+              <% for (let date in announcement) { %>
+              <h4 class='media-heading'><%= announcement[date].date %> <%= announcement[date].message %> </h4>
 
-          <form action="/search" method="post" class="navbar-form" role="search">
-             <div class="input-group add-on">
-                <input id="searchbox" type="text" class="form-control" name="place" placeholder="Search">
-                <div class="input-group-btn">
-                   <button id="searchbox-btn" class="btn btn-xs" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
-             </div>
-          </form>
+               <% } %>
+              
+            </div>
+            <center>
+               <br>
+               <br>
+               RateMyHome
+            </center>
+            <form action="/search" method="post" class="navbar-form" role="search">
+               <div class="input-group add-on">
+                  <input id="searchbox" type="text" class="form-control" name="place" placeholder="Search">
+                  <div class="input-group-btn">
+                     <button id="searchbox-btn" class="btn btn-xs" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                  </div>
+               </div>
+            </form>
+         </div>
       </div>
 
    <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>

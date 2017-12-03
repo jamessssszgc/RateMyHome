@@ -1,6 +1,27 @@
-var MongoClient = require('mongodb').MongoClient
+	var MongoClient = require('mongodb').MongoClient
     var url = "mongodb://manager:123@ds123896.mlab.com:23896/melonskin"
     var posts = [ {user: "one", text: "I like Javascript"}, {user: "two", text: "I love python"}, {user: "three", text: "I like Ruby"}, {user: "four", text: "I like Java"}, {user: "five", text: "I love C."}]
+
+    function getDate() {
+    	var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd = '0'+dd
+		} 
+
+		if(mm<10) {
+		    mm = '0'+mm
+		} 
+
+		today = mm + '/' + dd + '/' + yyyy;
+		return today;
+    }
+    
+	//console.log(getDate());
+	//document.write(today);
 
 
     MongoClient.connect(url, function(err,res){
@@ -9,25 +30,29 @@ var MongoClient = require('mongodb').MongoClient
 				db = res
 				
 				// Add functions here
-				var data = {userID: "Peanut", reviews: "IDK"}
+				var data = {message: "Yoyo watsup", date: getDate()}
 				
-				// CREATE COLLECTION!!!
-				// db.createCollection( "reviews",
+				//CREATE COLLECTION!!!
+				// db.createCollection( "announcement",
 				//    {
 				//       validator: { $or:
 				//          [
-				//             { userID: { $type: "string" } },
-				//             { reviews: { $type: "string" } }
+				//             { message: { $type: "string" } },
+				//             { date: { $type: "date" } }
 				//          ]
 				//       }
 				//    }
 				// );
 
 				// INSERT DATA!!!
-				// db.collection("reviews").insertOne(data, function(err, res){
-				// 	//continue
-				// 	console.log("Database inserted");
-				// });
+				db.collection("announcement").insertOne(data, function(err, res){
+					//continue
+					console.log("Database inserted");
+				});
+
+				//db.collection.update({ "message": "Hey hey hey hey it's an announcement" }, { "$set": { "date": new Date() }})
+				//db.collection.update({ "message": "Hey hey hey hey it's an announcement"}, { "$currentDate": { "date": { "$type": date }}})
+
 
 				// var data = {user: "John", text: "I can decide!"}
 				// db.collection("COLLECTION").insertOne(data, function(err, res){
@@ -40,8 +65,7 @@ var MongoClient = require('mongodb').MongoClient
 				// // });
 
 				// PRINT ALL ARRAY!
-				db.collection("reviews").find({userID:"Peanut"}).toArray(function(err, res) {		
-					
+				db.collection("announcement").find({userID:"Peanut"}).toArray(function(err, res) {		
 					console.log(res);
 				});
 

@@ -163,8 +163,8 @@ app.post('/detail/:id/comment',(req, res) => {
 					console.log("Database inserted");
 					res.redirect('/detail/'+req.params.id);
 				});
-
 });
+
 
 
 app.delete('/detail/:placeid/:userid',(req,res) =>{
@@ -174,7 +174,9 @@ app.delete('/detail/:placeid/:userid',(req,res) =>{
   {userID:req.params.userid,placeid:req.params.placeid}
     )
   res.redirect('/detail/'+req.params.placeid)
-});3
+});
+
+
 
 app.put('/detail/:placeid/:userid',(req,res) =>{
   console.log("updat"+req.params.placeid)
@@ -189,7 +191,7 @@ app.put('/detail/:placeid/:userid',(req,res) =>{
   {upsert: true}
   )
   res.redirect('/detail/'+req.params.placeid)
-});3
+});
 
 
 

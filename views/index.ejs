@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/style.css">
     <!-- <script src="map_script.js"></script> -->
     <script type="text/javascript" src="/detail.js"></script>
+    <script src="map_script"></script>
 </head>
 
 <body>
@@ -12,7 +13,7 @@
    <% include partials/navbar %>
 
       <div id="container">
-         <div id="firstview">
+         <!-- <div id="firstview"> -->
             <div id="announcement" style="color:#0000FF">
               <h3>Announcement</h3>
               <% for (let date in announcement) { %>
@@ -34,7 +35,7 @@
                   </div>
                </div>
             </form>
-         </div>
+         <!-- </div> -->
       </div>
 
    <button onclick="topFunction()" id="toTop" title="Go to top">Top</button>

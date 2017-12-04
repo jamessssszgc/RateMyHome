@@ -94,6 +94,7 @@ app.get('/', function(req, res) {
 
 //home page
 app.get('/home', function(req, res) {
+    res.cookie('register_id', 0)
     db.collection("announcement").find().sort({
         "date": -1
     }).limit(1).toArray(function(err, data) {

@@ -98,30 +98,60 @@ app.get('/home', function(req, res) {
         "date": -1
     }).limit(1).toArray(function(err, data) {
         if (err) console.log(err);
-        console.log(data.date)
-        res.render('index', {
+        //console.log(data.date)
+        if (data.length){
+        	res.render('index', {
             date: data[0].date,
             message:data[0].message
         });
+        }
+        
     })
 
+
+    db.collection("announcement").find().nextObject(function(err, data) {   
+      if (data != undefined && data != null) {
+          db.collection("announcement").find().sort({
+            "date": -1
+        }).limit(1).toArray(function(err, data) {
+            if (err) {
+              console.log(err);
+            }
+            
+            res.render('index', {
+            date: data[0].date,
+            message:data[0].message
+        });
+        })
+      } else {
+          res.render('index',{date:"", message:""})
+      }
+    });
 
 })
 
 
 //admin get the latest message
 app.get('/api/messages', function(req, res) {
-    db.collection("announcement").find().sort({
-        "data": -1
-    }).limit(1).toArray(function(err, data) {
-        if (err) console.log(err);
-        console.log(data[0].date)
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({
-            date: data[0].date,
-            message: data[0].message
-        }))
-    })
+    db.collection("announcement").find().nextObject(function(err, data) {   
+      if (data != undefined && data != null) {
+          db.collection("announcement").find().sort({
+            "date": -1
+        }).limit(1).toArray(function(err, data) {
+            if (err) {
+              console.log(err);
+            }
+            console.log(data[0].date)
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({
+                date: data[0].date,
+                message: data[0].message
+            }))
+        })
+      } else {
+          res.status(200).send("No announcement!");
+      }
+    });
 })
 
 //admin post a new message

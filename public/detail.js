@@ -13,7 +13,7 @@ $(document).ready(function(){
     document.getElementById('registerbtn').style.display= 'none';
     document.getElementById('loginas').innerHTML=dispuser;
     document.getElementById('logoutbtn').style.visibility="visible";
-    document.getElementById('announcement').style.display= 'none';
+    document.getElementById('announcement').style.visibility="visible";
   } else {
     $("#myinput").hide();
     $("#noinput").show();

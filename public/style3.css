@@ -6,6 +6,11 @@ html, body {
     padding-bottom:100px; 
 }
 
+img {
+    width: 100%;
+    height: auto;
+}
+
 /* --- Main blocks --- */
 #container {
 	position: absolute;
@@ -21,7 +26,12 @@ html, body {
 	display: flex;
 	margin: auto;
 	padding-top: 50px;
-	padding-left: 100px;
+	padding-left: 10px;
+    padding-right: 10px;
+}
+
+#userInput {
+    padding-bottom: 50px;
 }
 
 /* --- Infromation and Review Parts --- */

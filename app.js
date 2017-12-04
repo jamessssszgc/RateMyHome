@@ -93,21 +93,6 @@ app.get('/', function(req, res) {
 //home page
 app.get('/home', function(req, res) {
     res.cookie('register_id', 0)
-    db.collection("announcement").find().sort({
-        "date": -1
-    }).limit(1).toArray(function(err, data) {
-        if (err) console.log(err);
-        //console.log(data.date)
-        if (data.length){
-        	res.render('index', {
-            date: data[0].date,
-            message:data[0].message
-        });
-        }
-        
-    })
-
-
     db.collection("announcement").find().nextObject(function(err, data) {   
       if (data != undefined && data != null) {
           db.collection("announcement").find().sort({
@@ -140,11 +125,11 @@ app.get('/api/messages', function(req, res) {
             if (err) {
               console.log(err);
             }
-            console.log(data[0].date)
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({
                 date: data[0].date,
-                message: data[0].message
+                message: data[0].message,
+                id: data[0]._id
             }))
         })
       } else {
@@ -155,7 +140,6 @@ app.get('/api/messages', function(req, res) {
 
 //admin post a new message
 app.post('/api/messages', function(req, res) {
-    console.log(req.body.message)
     db.collection("announcement").insertOne({
         date: new Date(),
         message: req.body.message

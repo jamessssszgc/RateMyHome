@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-  console.log("===================== working on third view")
   userid = getCookie("userid");
   if (userid != '' && userid!=null) {
     $("#myinput").show();
@@ -24,6 +23,16 @@ $(document).ready(function(){
     document.getElementById('logoutbtn').style.display= 'none';
     document.getElementById('announcement').style.display= 'none';
   }
+$.getJSON("/api/messages",function(result){
+        $('#announcement').text(result.date + ' - ' + result.message);
+    });
+  // update the announcement
+  setInterval(function() {
+    $.getJSON("/api/messages",function(result){
+        $('#announcement').text(result.date + ' - ' + result.message);
+    });
+    }, 3000)
+        
 
   var offset = 30;
   $('#myNav li a').click(function(event) {
@@ -32,6 +41,7 @@ $(document).ready(function(){
     scrollBy(0, -offset);
   });
 })
+
 
 
 

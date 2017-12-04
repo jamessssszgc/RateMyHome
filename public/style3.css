@@ -7,9 +7,12 @@ html, body {
 }
 
 img {
+
+    /*width: 100%;*/
     
-    height: auto;
     max-width: 100%;
+    height: auto;
+
 }
 
 /* --- Main blocks --- */
@@ -29,6 +32,7 @@ img {
 	padding-top: 50px;
 	padding-left: 10px;
     padding-right: 10px;
+
 }
 
 #userInput {
@@ -128,15 +132,21 @@ textarea.form-control {
 		font-size:1em;
 		left:-150px;
 	}
+    .img {
+        height: 600px;
+    }
    
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     .side, .middle {
         width: 100%;
     }
     .right {
         display: none;
+    }
+    .img {
+        height: 400px;
     }
 }
 

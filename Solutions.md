@@ -1,6 +1,6 @@
 # Webiste: ratemyhome
 ## url:
-rate-my-home.herokuapp.com
+http:rate-my-home.herokuapp.com
 ## members:
 - Jun Chen (1002073196)
 - Guanchen Zhang (1002073132) 
@@ -18,11 +18,21 @@ If the user is logged in, he/she is able to post a comment of this place. A logg
 
 
 To manipulate annoucements, use the following commands:
+
 curl --header 'Content-Type: application/json' -XPOST -d '{"message":"This is our website"}' http://rate-my-home.herokuapp.com/api/messages
+
 curl -XGET http://rate-my-home.herokuapp.com/api/messages
+
 curl -XDELETE http://rate-my-home.herokuapp.com/api/messages/_id
 
 # API
+## RESTful API
+- Users can perform 4 basic CURD operation
+- The URIs is not too long and representive conating only nouns.
+- Any sources can be feteched from our website through links pointing to relatice URIs.
+- The client application and server application is able to envolve separately.
+- Our website is stateless which means server will not store anything about the http request client made. It will treat each request as new.
+
 ## get /
 redirect to /home
 
@@ -30,7 +40,7 @@ redirect to /home
 Render the first page to users along with the latest admin message if the user is logged in.
 
 ## get /detail/:placeid
-Get the specific place details which contain the place picture, a description, users' review. If the user is logged in, he/she is able to post his/her own review along with the rating. 
+Get the specific place details which contain the place picture, a description, users' review. If the user is logged in, he/she is able to post his/her own review along with the rating. The placeid is specified by the placeid in google map api.
 
 
 ## post /detail/:placeid/comment

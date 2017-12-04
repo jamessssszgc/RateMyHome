@@ -154,7 +154,7 @@ $(document).ready(function(){
     document.getElementById('logoutbtn').style.display= 'none';
   }
 
-  initMap();
+  
   console.log(document.cookie)
   var offset = 30;
   $('#myNav li a').click(function(event) {

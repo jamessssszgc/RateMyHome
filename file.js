@@ -58,25 +58,6 @@ var MongoClient = require('mongodb').MongoClient
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				//  Create a new collection
 				// db.createCollection("GUAPI", { capped : true, size : 5242880, max : 5000 } );
 				// db.collection("GUAPI").insertOne(data, function(err, res){

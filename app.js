@@ -316,50 +316,6 @@ app.put('/detail/:placeid/:userid', (req, res) => {
 
 });
 
-//admin get the latest message
-app.get('/api/messages', function(req, res) {
-    db.collection("announcement").find().nextObject(function(err, data) {   
-      if (data != undefined && data != null) {
-          db.collection("announcement").find().sort({
-            "date": -1
-        }).limit(1).toArray(function(err, data) {
-            if (err) {
-              console.log(err);
-            }
-            console.log(data[0].date)
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify({
-                date: data[0].date,
-                message: data[0].message
-            }))
-        })
-      } else {
-          res.status(200).send("No announcement!");
-      }
-    });
-
-    // db.collection("announcement").find().sort({
-    //     "date": -1
-    // }).limit(1).toArray(function(err, data) {
-    //     if (err) {
-    //       console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    //       res.status(200).send("No announcement!");
-    //     }
-
-    //     if (data != undefined && data != null) {
-    //       console.log(data[0].date)
-    //       res.setHeader('Content-Type', 'application/json');
-    //       res.send(JSON.stringify({
-    //           date: data[0].date,
-    //           message: data[0].message
-    //       }))
-    //     }
-    // })
-    
-    //res.status(200).send("pong!");
-
-})
-
 
 
 app.listen(PORT, () => {

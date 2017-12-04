@@ -1,6 +1,6 @@
 # Webiste: ratemyhome
 ## url:
-http:rate-my-home.herokuapp.com
+https://rate-my-home.herokuapp.com
 ### members:
 - Jun Chen (1002073196)
 - Guanchen Zhang (1002073132) 

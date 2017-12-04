@@ -214,18 +214,20 @@ app.get('/detail/:id?', function(req, res) {
                 var method = ''
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].rate == "1") rate[0]++
-                        if (data[i].rate == "2") rate[1]++
-                            if (data[i].rate == "3") rate[2]++
-                                if (data[i].rate == "4") rate[3]++
-                                    if (data[i].rate == "4") rate[4]++
-                                        if (data[i].userID == req.cookies.userid) method = req.cookies.userid + '/?_method=PUT'
+                    if (data[i].rate == "2") rate[1]++
+                    if (data[i].rate == "3") rate[2]++
+                    if (data[i].rate == "4") rate[3]++
+                    if (data[i].rate == "4") rate[4]++
+                    if (data[i].userID == req.cookies.userid) method = req.cookies.userid + '/?_method=PUT'
                 }
                 if (method == '') method = 'comment'
 
                 var sum = rate.reduce((a, b) => a + b, 0);
                 var avg = (rate[0] + rate[1] * 2 + rate[2] * 3 + rate[3] * 4 + rate[4] * 5) / sum
-                var bar = [(rate[0] / sum) * 100, (rate[1] / sum) * 100, (rate[2] / sum) * 100, (rate[3] / sum) * 100, (rate[4] / sum) * 100]
+                var bar = [0,0,0,0,0]
+                bar = [(rate[0] / sum) * 100, (rate[1] / sum) * 100, (rate[2] / sum) * 100, (rate[3] / sum) * 100, (rate[4] / sum) * 100]
                 setTimeout(function() {
+                	console.log(rate)
                     res.render("third_view", {
                         photo: photo,
                         placeid: itemID,
@@ -239,7 +241,7 @@ app.get('/detail/:id?', function(req, res) {
                         bar: bar,
                         method: method
                     })
-                }, 1000)
+                }, 2000)
 
             })
 
@@ -276,12 +278,12 @@ app.post('/detail/:id/comment', (req, res) => {
         rate: req.body.rate,
         placeid: req.params.id
     }, function(err, result) {
-        //continue
         if (err) return console.log(err)
         console.log("Database inserted");
+    	//wait for database
         setTimeout(function() {
             res.redirect('/detail/' + req.params.id);
-        }, 1000)
+        }, 500)
 
     });
 });
@@ -297,7 +299,7 @@ app.delete('/detail/:placeid/:userid', (req, res) => {
     }, function(err, result) {
         setTimeout(function() {
             res.redirect('/detail/' + req.params.placeid)
-        }, 1000)
+        }, 500)
     })
 
 
@@ -321,7 +323,7 @@ app.put('/detail/:placeid/:userid', (req, res) => {
     })
     setTimeout(function() {
         res.redirect('/detail/' + req.params.placeid)
-    }, 1000)
+    }, 500)
 
 });
 

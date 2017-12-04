@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  console.log("===================== working on third view")
   userid = getCookie("userid");
   if (userid != '' && userid!=null) {
     $("#myinput").show();
@@ -12,7 +13,7 @@ $(document).ready(function(){
     document.getElementById('registerbtn').style.display= 'none';
     document.getElementById('loginas').innerHTML=dispuser;
     document.getElementById('logoutbtn').style.visibility="visible";
-
+    document.getElementById('announcement').style.visibility="visible";
   } else {
     $("#myinput").hide();
     $("#noinput").show();
@@ -21,6 +22,7 @@ $(document).ready(function(){
     document.getElementById('registerbtn').style.visibility="visible";
     document.getElementById('loginas').innerHTML="";
     document.getElementById('logoutbtn').style.display= 'none';
+    document.getElementById('announcement').style.display= 'none';
   }
 
   var offset = 30;
@@ -38,23 +40,5 @@ function getCookie(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) return parts.pop().split(";").shift();
-
-}
-
-
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        $("#toTop").css("display","block");
-    } else {
-        $("#toTop").css("display","block");
-    }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-    document.body.scrollTop = 0; 
-    document.documentElement.scrollTop = 0; 
 
 }

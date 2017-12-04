@@ -1,4 +1,12 @@
-Include names of your team members Member 1: Jun Chen (1002073196) Member 2: Guanchen Zhang (1002073132) Member 3: Yufeng Li (1001408309) Member 4: Songlin Liu (1002616010)
+# Webiste: ratemyhome
+## url:
+rate-my-home.herokuapp.com
+## members:
+- Jun Chen (1002073196)
+- Guanchen Zhang (1002073132) 
+- Yufeng Li (1001408309) 
+- Songlin Liu (1002616010)
+
 
 # Website detail
 Our first view is a simple welcome. The user can use the search bar to allocate the center of near-by searching and login or register on the top right corner. Also, the announcement posted by administrator will be updated with in 3 seconds. The top navigation bar always collapses to a view fitting mobile screen.

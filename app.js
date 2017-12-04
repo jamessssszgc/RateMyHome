@@ -130,8 +130,10 @@ app.get('/detail/:id?', function(req,res){
       var sum = rate.reduce((a, b) => a + b, 0);
       var avg = (rate[0]+rate[1]*2+rate[2]*3+rate[3]*4+rate[4]*5)/sum
       var bar = [(rate[0]/sum)*100,(rate[1]/sum)*100,(rate[2]/sum)*100,(rate[3]/sum)*100,(rate[4]/sum)*100]
+      setTimeout(function(){
+        res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data,rate:rate,avg:avg,bar:bar,method:method})
+      },1000)
 
-      res.render("third_view",{photo:photo,placeid:itemID,name:name, address:address, postal:postal,website:website,REVIEWS:data,rate:rate,avg:avg,bar:bar,method:method})
     })
 		
 	})
@@ -164,7 +166,10 @@ app.post('/detail/:id/comment',(req, res) => {
 					//continue
 					if (err) return console.log(err)
 					console.log("Database inserted");
-					res.redirect('/detail/'+req.params.id);
+					setTimeout(function(){
+            res.redirect('/detail/'+req.params.id);
+          },1000)
+          
 				});
 });
 
@@ -176,14 +181,15 @@ app.delete('/detail/:placeid/:userid',(req,res) =>{
   db.collection("REVIEWS").remove(
   {userID:req.params.userid,placeid:req.params.placeid}
     )
-  res.redirect('/detail/'+req.params.placeid)
+  setTimeout(function(){
+    res.redirect('/detail/'+req.params.placeid)
+  },1000)
+  
 });
 
 
 
 app.put('/detail/:placeid/:userid',(req,res) =>{
-  console.log("updat"+req.params.placeid)
-  console.log(req.params.userid)
   db.collection("REVIEWS").update(
   {$and:[{userID:req.params.userid,placeid:req.params.placeid}]},
   { userID:req.params.userid,
@@ -193,7 +199,10 @@ app.put('/detail/:placeid/:userid',(req,res) =>{
   },
   {upsert: true}
   )
-  res.redirect('/detail/'+req.params.placeid)
+  setTimeout(function(){
+    res.redirect('/detail/'+req.params.placeid)
+  },1000)
+  
 });
 
 

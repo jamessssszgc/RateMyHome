@@ -29,7 +29,8 @@ function initMap() {
   console.log(center);
   map = new google.maps.Map(document.getElementById('map'), {
     center: center,
-    zoom: zoom
+    zoom: zoom,
+    gestureHandling: "cooperative"
   });
 
   var request = {
@@ -91,6 +92,7 @@ function createMarker(place) {
 }
 
 function setRadius(r) {
+  radius = r;
   switch (r) {
     case 2000:
       zoom = 14; break;
@@ -99,13 +101,15 @@ function setRadius(r) {
     case 500:
       zoom = 15; break;
   }
+  $("#radius-dropdown > a").html("Radius = " + r + "m")
   initMap();
-  radius = r;
+
 }
 
 
 function setHomeType(t) {
   hometype = t;
+  $("#home-type-dropdown > a").html("HomeType = " + t)
   initMap();
 }
 

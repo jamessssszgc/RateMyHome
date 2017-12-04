@@ -6,7 +6,7 @@ html, body {
     padding-bottom:100px; 
 }
 
-img {
+#place_img > img {
 
     /*width: 100%;*/
     

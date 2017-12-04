@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-  console.log("===================== working on third view")
   userid = getCookie("userid");
   if (userid != '' && userid!=null) {
     $("#myinput").show();
@@ -13,7 +12,7 @@ $(document).ready(function(){
     document.getElementById('registerbtn').style.display= 'none';
     document.getElementById('loginas').innerHTML=dispuser;
     document.getElementById('logoutbtn').style.visibility="visible";
-    document.getElementById('announcement').style.visibility="visible";
+
   } else {
     $("#myinput").hide();
     $("#noinput").show();
@@ -22,7 +21,6 @@ $(document).ready(function(){
     document.getElementById('registerbtn').style.visibility="visible";
     document.getElementById('loginas').innerHTML="";
     document.getElementById('logoutbtn').style.display= 'none';
-    document.getElementById('announcement').style.display= 'none';
   }
 
   var offset = 30;

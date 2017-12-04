@@ -259,13 +259,19 @@ app.get('/search', function(req, res) {
 //search post
 app.post('/search', function(req, res) {
     console.log(req.body.place)
+    if (req.body.place != "" && req.body.place !== "undefined"){
     getLatLng(req.body.place)
         .then(result => {
             res.cookie('lat', result.lat)
             res.cookie('lng', result.lng)
             res.redirect('/search')
         })
-
+     }
+     else{
+        res.cookie('lat',43.6591063)
+        res.cookie('lng',-79.3973723)
+        res.redirect('/search')
+     }
 })
 
 

@@ -13,7 +13,7 @@
     "lodash.get": "^4.4.2",
     "method-override": "^2.3.10",
     "mongoose": "^4.13.5",
-    "morgan": "^1.9.0",
+    "morgan": "^1.9.1",
     "mpath": "^0.3.0",
     "mpromise": "^0.5.5",
     "mquery": "^2.3.3",
